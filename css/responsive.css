@@ -1,0 +1,16 @@
+.content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 611px) {
+    #restaurants-list li {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 612px) and (max-width: 1095px) {
+    #restaurants-list li {
+        width: 45%;
+    }
+}
