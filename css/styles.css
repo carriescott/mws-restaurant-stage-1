@@ -149,6 +149,7 @@ nav h1 a {
     flex-wrap: wrap;
     flex-direction: row;
     padding:0;
+    /*width:100%;*/
 }
 /*#restaurants-list li {*/
   /*background-color: #fff;*/
@@ -172,10 +173,11 @@ nav h1 a {
     text-align: left;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
     border-radius: 2px;
-    max-width: calc(100%/2);
-    padding: 0 30px 25px;
+    /*max-width: calc(100%/2);*/
+    /*padding: 0 30px 25px;*/
     margin-top: 0.5%;
     margin-bottom: 0.5%;
+    /*width:100%;*/
 }
 
 
