@@ -106,7 +106,19 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 #maincontent {
   background-color: #f3f3f3;
   min-height: 100%;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    margin-top: 131px;
 }
+
+#restaurant-card {
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+}
+
 #footer {
   background-color: #444;
   color: #aaa;
@@ -116,6 +128,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   text-align: center;
   text-transform: uppercase;
     background-color: transparent;
+    border-top: 1px solid #d9d9d9;
 }
 /* ====================== Navigation ====================== */
 nav {
@@ -343,27 +356,33 @@ nav h1 a {
 }
 .inside table {
     margin-left:10px;
+    width: 50%;
 }
 
 .inside #map-container {
-  background: blue none repeat scroll 0 0;
-    height: calc(100% - 131px);
-  position: fixed;
-  right: 0;
-  top: 131px;
-  width: 50%;
+    /*background: blue none repeat scroll 0 0;*/
+    height: 20%;
+    position: absolute;
+    /* z-index: 100; */
+    /* right: 0; */
+    top: 131px;
+    /* width: 50%; */
 }
 .inside #map {
-  background-color: #ccc;
-  height: 100%;
-  width: 100%;
+    background-color: #ccc;
+    /* height: 100%; */
+    width: 50%;
+    float: right;
+    height:inherit;
 }
 .inside #footer {
   bottom: 0;
-  position: absolute;
-  width: 50%;
+  /*position: absolute;*/
+  width: 100%;
     background-color: transparent;
     padding:25px 0;
+    margin-left: auto;
+    margin-right: auto;
 }
 #restaurant-name {
   color: #f18200;
@@ -371,9 +390,9 @@ nav h1 a {
   font-size: 20pt;
   font-weight: 200;
   letter-spacing: 0;
-  /*margin: 15px 0 30px;*/
+  margin: 15px 0 30px;
 
-    margin: 146px 0 15px 0;
+    /*margin: 146px 0 15px 0;*/
   text-transform: uppercase;
   line-height: 1.1;
     /*margin-top: 131px;*/
@@ -407,10 +426,12 @@ nav h1 a {
 	width: calc(100% - 20px);
 }
 #restaurant-container, #reviews-container {
-  border-bottom: 1px solid #d9d9d9;
+  /*border-bottom: 1px solid #d9d9d9;*/
   border-top: 1px solid #fff;
   /*padding: 140px 40px 30px;*/
-  width: 50%;
+  width: 100%;
+    margin-left: auto;
+    margin-right:auto;
 }
 #reviews-container {
   /*padding: 30px 40px 80px;*/
@@ -492,3 +513,10 @@ nav h1 a {
     /*font-weight: 700;*/
     /*text-decoration: none;*/
 /*}*/
+
+#test {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 200px;
+}
