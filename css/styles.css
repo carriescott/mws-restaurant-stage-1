@@ -63,19 +63,19 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 /* ====================== Home Page ====================== */
 
 /*Add to enable skipping to main content*/
-/*.skip-link {*/
-    /*position: absolute;*/
-    /*top: -120px;*/
-    /*left: 0;*/
-    /*background: #BF1722;*/
-    /*color: white;*/
-    /*padding: 8px;*/
-    /*z-index:1000;*/
-/*}*/
+.skip-link {
+    position: absolute;
+    top: -120px;
+    left: 0;
+    background: #BF1722;
+    color: white;
+    padding: 8px;
+    z-index:1000;
+}
 
-/*.skip-link:focus {*/
-    /*top: 40px;*/
-/*}*/
+.skip-link:focus {
+    top: 40px;
+}
 
 /*Add back in once finished*/
 /*.home header {*/
@@ -135,6 +135,11 @@ nav h1 a {
   letter-spacing: 10px;
   text-transform: uppercase;
 }
+.breadcrumb {
+    position: fixed;
+    height: 51px;
+}
+
 #breadcrumb {
     padding: 10px 40px 16px;
     list-style: none;
@@ -142,9 +147,12 @@ nav h1 a {
     font-size: 17px;
     margin: 0;
     /*width: calc(50% - 80px);*/
-    width: 100%;
+    /*width: 100%;*/
+    /*margin-top: 80px;*/
+    text-align: left;
+    max-height: 51px;
+    z-index: 100;
 }
-
 /* Display list items side by side */
 #breadcrumb li {
     display: inline;
@@ -199,6 +207,18 @@ nav h1 a {
   margin: 10px;
   padding: 0 10px;
   width: 200px;
+}
+
+.filter-container select {
+    background-color: white;
+    border: 1px solid #fff;
+    font-family: Arial,sans-serif;
+    font-size: 11pt;
+    height: 35px;
+    letter-spacing: 0;
+    margin: 10px;
+    padding: 0 10px;
+    width: 200px;
 }
 
 /* ====================== Restaurant Listing ====================== */
@@ -436,3 +456,39 @@ nav h1 a {
 #restaurant-hours td {
   color: #666;
 }
+
+
+/* ====================== Breadcrumb ====================== */
+
+
+/*nav.breadcrumb {*/
+    /*padding: 0.8em 1em;*/
+    /*border: 1px solid hsl(0, 0%, 90%);*/
+    /*border-radius: 4px;*/
+    /*background: hsl(300, 14%, 97%);*/
+/*}*/
+
+/*nav.breadcrumb ul {*/
+    /*margin: 0;*/
+    /*padding-left: 0;*/
+    /*list-style: none;*/
+/*}*/
+
+/*nav.breadcrumb li {*/
+    /*display: inline;*/
+/*}*/
+
+/*nav.breadcrumb li + li::before {*/
+    /*display: inline-block;*/
+    /*margin: 0 .25em;*/
+    /*transform: rotate(15deg);*/
+    /*border-right: .1em solid currentColor;*/
+    /*height: .8em;*/
+    /*content: '';*/
+/*}*/
+
+/*nav.breadcrumb [aria-current="page"] {*/
+    /*color: #000;*/
+    /*font-weight: 700;*/
+    /*text-decoration: none;*/
+/*}*/

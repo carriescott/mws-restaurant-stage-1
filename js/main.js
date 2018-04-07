@@ -1,8 +1,7 @@
-let restaurants,
-  neighborhoods,
-  cuisines
-var map
-var markers = []
+let restaurants, neighborhoods, cuisines, comoBox;
+var map;
+var markers = [];
+
 
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
@@ -12,32 +11,95 @@ document.addEventListener('DOMContentLoaded', (event) => {
   fetchCuisines();
 });
 
+
+
 /**
  * Fetch all neighborhoods and set their HTML.
  */
 fetchNeighborhoods = () => {
-  DBHelper.fetchNeighborhoods((error, neighborhoods) => {
+  DBHelper.fetchNeighborhoods((error, neighborhoods, comoBox) => {
     if (error) { // Got an error
       console.error(error);
     } else {
       self.neighborhoods = neighborhoods;
       fillNeighborhoodsHTML();
+      // fillNeighborhoodsTestTestHTML();
+    // var input = document.getElementById('neighborhood-input');
+    // var listbox = document.getElementById('neighborhoods-select-test-listbox');
+    // comboBox = new ComboBox(input, listbox);
+    // new ComboBox(input, listbox);
     }
   });
-}
+};
+
+//TEST REMOVE LATER
+
+// /**
+//  * Create all neighborhoods HTML and add them to the webpage.
+//  */
+// fillNeighborhoodsTestHTML = (neighborhoods = self.neighborhoods) => {
+//     const ul = document.getElementById('neighborhoods-select-test');
+//     neighborhoods.forEach(neighborhood => {
+//         ul.append(createNeighborhoodHTML(neighborhood));
+// });
+// };
+//
+//
+// /**
+//  * Create neighboorhood HTML.
+//  */
+// createNeighborhoodHTML = (neighborhood) => {
+//     console.log('neighborhood');
+//     const li = document.createElement('li');
+//     // li.className = 'list-item';
+//     //Setting a tab index and a role on each list item
+//     li.setAttribute("role", "option");
+//     li.innerHTML = neighborhood;
+//     li.value = neighborhood;
+//     li.tabIndex = 0;
+//     li.id = neighborhood;
+//     li.addEventListener('mouseover', () => {
+//         console.log('mouseover');
+//     // li.setAttribute('aria-activedescendant', li.id);
+// });
+//     return li;
+// };
+
+
+// /**
+//  * Set neighborhoods HTML.
+//  */
+// fillNeighborhoodsTestTestHTML = (neighborhoods = self.neighborhoods) => {
+//     const ul = document.getElementById('neighborhoods-select-test');
+//     neighborhoods.forEach(neighborhood => {
+//         const li = document.createElement('li');
+//     li.setAttribute("role", "option");
+//     li.innerHTML = neighborhood;
+//     li.value = neighborhood;
+//     console.log(li.value);
+//     ul.append(li);
+//     });
+// };
+
+
+
+//TEST REMOVE LATER
+
 
 /**
  * Set neighborhoods HTML.
  */
 fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
-  const select = document.getElementById('neighborhoods-select');
-  neighborhoods.forEach(neighborhood => {
-    const option = document.createElement('option');
+    const select = document.getElementById('neighborhoods-select');
+    neighborhoods.forEach(neighborhood => {
+        const option = document.createElement('option');
     option.innerHTML = neighborhood;
     option.value = neighborhood;
     select.append(option);
-  });
+    });
 }
+
+
 
 /**
  * Fetch all cuisines and set their HTML.
@@ -58,7 +120,6 @@ fetchCuisines = () => {
  */
 fillCuisinesHTML = (cuisines = self.cuisines) => {
   const select = document.getElementById('cuisines-select');
-
   cuisines.forEach(cuisine => {
     const option = document.createElement('option');
     option.innerHTML = cuisine;
@@ -66,7 +127,6 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
     select.append(option);
   });
 }
-
 /**
  * Initialize Google map, called from HTML.
  */
@@ -78,11 +138,10 @@ window.initMap = () => {
   self.map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: loc,
-    scrollwheel: false
+    scrollwheel: false,
   });
   updateRestaurants();
 }
-
 /**
  * Update page and map for current restaurants.
  */
@@ -130,6 +189,22 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
     ul.append(createRestaurantHTML(restaurant));
   });
   addMarkersToMap();
+    //Get count of restaurants returned in the list
+    var resultsCount = document.getElementById("restaurants-list").getElementsByClassName('list-item').length;
+    console.log(resultsCount);
+    var resultHeader = document.getElementById("results-count");
+    var resString = setResultString(resultsCount);
+    resultHeader.innerHTML = resString;
+}
+
+function setResultString(res) {
+    var resString;
+    if (res) {
+        resString = res + ' results';
+    } else{
+        resString = ' No results';
+    }
+    return resString;
 }
 
 /**
@@ -137,7 +212,11 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
+  li.className = 'list-item';
+    //Setting a tab index and a role on each list item
+    li.setAttribute("role", "option");
     li.tabIndex = 0;
+
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
@@ -146,13 +225,6 @@ createRestaurantHTML = (restaurant) => {
   image.alt = restaurant.photograph_description;
     image.tabIndex = 0;
   li.append(image);
-
-    // test
-    // const div = document.createElement('div');
-    // div.className = 'test';
-    // const name = document.createElement('h1');
-    // name.innerHTML = restaurant.name;
-    // div.append(name);
 
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;
@@ -184,7 +256,6 @@ createRestaurantHTML = (restaurant) => {
     // });
 
   return li
-    // return div
 }
 
 /**

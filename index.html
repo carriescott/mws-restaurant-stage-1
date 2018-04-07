@@ -1,55 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-    <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700"/>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/combobox.css">
   <title>Restaurant Reviews</title>
 </head>
 
 <body class="home">
-<!--Skip to main content-->
-<!--<a href="#maincontent" class="skip-link">Skip to main content</a>-->
+  <a href="#filter-options" class="skip-link" tabindex="0">
+    Skip to filters
+  </a>
 
   <header>
     <nav>
-      <h1 tabindex="0"><a href="/">Restaurant Reviews</a></h1>
+      <h1><a href="/" aria-current="page">Restaurant Reviews</a></h1>
     </nav>
   </header>
 
   <main id="maincontent">
 
-    <section id="map-container">
+    <!--Look at aria for the map-->
+
+    <section id="map-container" aria-hidden="true">
       <div id="map" role="application" aria-hidden="true"></div>
     </section>
 
 
-    <section>
-      <div class="filter-options">
-        <h2>Filter Results</h2>
+    <section id="restaurants-content" aria-label="Restaurants" tabindex="0">
+      <div id="filter-options" aria-label="Filter options for Restaurants">
 
-        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
-          <option value="all">All Neighborhoods</option>
-        </select>
+        <div id="filter-header">
+          <h2>Filter Results</h2>
+        </div>
 
-        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
-          <option value="all">All Cuisines</option>
-        </select>
+
+        <label id="hello" for="neighborhoods-select">Please Select a Neigborhood</label>
+        <div class="filter-container">
+            <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" aria-labelledby="hello">
+              <option value="all">All Neighborhoods</option>
+            </select>
+        </div>
+
+
+        <label for="cuisines-select" aria-label="Which Cuisine do you fancy?">Which cuisine do you fancy?</label>
+        <div class="filter-container">
+            <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()" aria-label="select a cuisine">
+              <option value="all">All Cuisines</option>
+            </select>
+        </div>
+
+        <div id="results count">
+          <h2 id="results-count"></h2>
+        </div>
 
       </div>
 
 
 
-      <ul id="restaurants-list"></ul>
+      <div id="results-content" aria-label="select a restaurant" tabindex="0">
+        <ul role=presentation id="restaurants-list" aria-label="List of Restaurants"></ul>
+        <!--insert message here for when there are no results-->
+      </div>
+
     </section>
   </main>
 
   <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
+  <script type="application/javascript" charset="utf-8" src="js/combobox.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0MkF5DWYkZnr82IOjvyGWYlAO_z7QIpY&libraries=places&callback=initMap"></script>
 
 
@@ -58,5 +82,7 @@
   </footer>
 
 </body>
-
 </html>
+
+
+
