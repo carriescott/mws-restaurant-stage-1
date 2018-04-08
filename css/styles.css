@@ -106,13 +106,12 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 #maincontent {
   background-color: #f3f3f3;
   min-height: 100%;
-    padding-top: 24px;
-    padding-bottom: 24px;
-    margin-top: 131px;
+    /*padding-top: 24px;*/
+    /*padding-bottom: 24px;*/
+    /*margin-top: 131px;*/
 }
 
 #restaurant-card {
-    width: 50%;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -197,11 +196,14 @@ nav h1 a {
 }
 /* ====================== Restaurant Filtering ====================== */
 .filter-options {
-  width: 100%;
+  /*width: 100%;*/
   height: 50px;
   background-color: #3397DB;
   align-items: center;
     display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
 }
 .filter-options h2 {
   color: white;
@@ -350,30 +352,45 @@ nav h1 a {
   z-index: 1000;
 }
 
+
+.inside #maincontent {
+    background-color: #f3f3f3;
+    min-height: 100%;
+    /*padding-top: 24px;*/
+    /*padding-bottom: 24px;*/
+    margin-top: 165px;
+    margin-bottom: 25px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
 .inside section {
     width: 50%;
     padding-bottom:20px;
 }
 .inside table {
-    margin-left:10px;
-    width: 50%;
+    /*margin-left:10px;*/
+    width: 100%;
 }
 
 .inside #map-container {
     /*background: blue none repeat scroll 0 0;*/
-    height: 20%;
-    position: absolute;
+    /*height: 20%;*/
+    /*position: absolute;*/
     /* z-index: 100; */
     /* right: 0; */
-    top: 131px;
+    /*top: 131px;*/
     /* width: 50%; */
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .inside #map {
     background-color: #ccc;
     /* height: 100%; */
-    width: 50%;
-    float: right;
-    height:inherit;
+    /*width: 50%;*/
+    /*float: right;*/
+    /*height:inherit;*/
 }
 .inside #footer {
   bottom: 0;
@@ -402,7 +419,12 @@ nav h1 a {
 	/*width: 90%;*/
     padding-left: 10px;
     padding-right: 10px;
+    /*width: calc(100% - 20px);*/
+    /*width:20vw;*/
     width: calc(100% - 20px);
+}
+#restaurant-img-container {
+    width:50%;
 }
 #restaurant-address {
     margin-left: 10px;
@@ -477,9 +499,12 @@ nav h1 a {
 #restaurant-hours td {
   color: #666;
 }
+#restaurant-hours-container {
+    width:50%;
+}
 
 
-/* ====================== Breadcrumb ====================== */
+    /* ====================== Breadcrumb ====================== */
 
 
 /*nav.breadcrumb {*/
@@ -518,5 +543,5 @@ nav h1 a {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 200px;
+    /*height: 200px;*/
 }

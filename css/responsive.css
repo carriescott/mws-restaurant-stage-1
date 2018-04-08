@@ -1,8 +1,14 @@
 /*Responsive Style Sheet*/
 
 @media only screen and (min-width: 1600px) {
-    #restaurants-list {
+    #restaurants-list, #filter-options {
         width: 1170px;
+    }
+    #restaurant-card {
+        width: 100%;
+    }
+    .inside #maincontent {
+        width: 800px
     }
     #restaurants-list li {
         width:32.5%;
@@ -13,8 +19,14 @@
     }
 }
 @media only screen and (max-width: 1599px) and (min-width: 1440px) {
-    #restaurants-list {
+    #restaurants-list, #filter-options {
         width: 1170px;
+    }
+    #restaurant-card {
+        width: 100%;
+    }
+    .inside #maincontent {
+        width: 800px
     }
     #restaurants-list li {
         width:32.5%;
@@ -25,8 +37,14 @@
     }
 }
 @media only screen and (max-width: 1439px) and (min-width: 1280px) {
-    #restaurants-list {
+    #restaurants-list, #filter-options {
         width: 1170px;
+    }
+    #restaurant-card {
+        width: 100%;
+    }
+    .inside #maincontent {
+        width: 800px
     }
     #restaurants-list li {
         width:32.5%;
@@ -38,8 +56,14 @@
 }
 /*Additional breakpoints*/
 @media only screen and (max-width: 1279px) and (min-width: 1024px) {
-    #restaurants-list {
+    #restaurants-list, #filter-options {
         width: 994px;
+    }
+    #restaurant-card {
+        width: 100%;
+    }
+    .inside #maincontent {
+        width: 800px
     }
     #restaurants-list li {
         width:32.5%;
@@ -50,8 +74,14 @@
     }
 }
 @media only screen and (max-width: 1023px) and (min-width: 960px) {
-    #restaurants-list {
+    #restaurants-list, #filter-options {
         width: 930px;
+    }
+    #restaurant-card {
+        width: 100%;
+    }
+    .inside #maincontent {
+        width: 800px
     }
     #restaurants-list li {
         width:32.5%;
@@ -62,8 +92,14 @@
     }
 }
 @media only screen and (max-width: 959px) and (min-width: 840px) {
-    #restaurants-list {
+    #restaurants-list, #filter-options {
         width: 810px;
+    }
+    #restaurant-card {
+        width: 100%;
+    }
+    .inside #maincontent {
+        width: 800px
     }
     #restaurants-list li {
         width:49.5%;
@@ -76,8 +112,11 @@
     }
 }
 @media only screen and (max-width: 839px) and (min-width: 720px) {
-    #restaurants-list {
+    #restaurants-list, .inside #maincontent, #filter-options {
         width: 690px;
+    }
+    #restaurant-card {
+        width: 100%;
     }
     #restaurants-list li {
         width:49.5%;
@@ -90,16 +129,22 @@
     }
 }
 @media only screen and (max-width: 719px) and (min-width: 600px) {
-    #restaurants-list {
+    #restaurants-list, .inside #maincontent, #filter-options {
         width: 570px;
+    }
+    #restaurant-card {
+        width: 100%;
     }
     #restaurants-list li {
         width: 100%;
     }
 }
 @media only screen and (max-width: 600px) and (min-width: 0) and (orientation: landscape) {
-    #restaurants-list {
+    #restaurants-list, .inside #maincontent, #filter-options {
         width: 568px;
+    }
+    #restaurant-card {
+        width: 100%;
     }
     #restaurants-list li {
         width: 100%;
@@ -107,8 +152,11 @@
     }
 }
 @media only screen and (max-width: 599px) and (min-width: 480px) {
-    #restaurants-list {
+    #restaurants-list, .inside #maincontent, #filter-options {
         width: 450px;
+    }
+    #restaurant-card {
+        width: 100%;
     }
     #restaurants-list li {
         width: 100%;
