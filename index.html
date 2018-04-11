@@ -15,7 +15,6 @@
   <a href="#filter-options" class="skip-link" tabindex="0">
     Skip to filters
   </a>
-
   <header>
     <nav>
       <h1><a href="/" aria-current="page">Restaurant Reviews</a></h1>
@@ -23,46 +22,42 @@
   </header>
 
   <main id="maincontent">
-
-    <!--Look at aria for the map-->
-
     <section id="map-container" aria-hidden="true">
       <div id="map" role="application" aria-hidden="true"></div>
     </section>
 
 
-    <section id="restaurants-content" aria-label="Restaurants" tabindex="0">
+    <section id="restaurants-content" aria-label="Restaurants">
+
       <div id="filter-options" aria-label="Filter options for Restaurants">
 
         <div id="filter-header">
           <h2>Filter Results</h2>
         </div>
-
-
-        <label id="hello" for="neighborhoods-select">Please Select a Neigborhood</label>
-        <div class="filter-container">
-            <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" aria-labelledby="hello">
-              <option value="all">All Neighborhoods</option>
-            </select>
-        </div>
-
-
-        <label for="cuisines-select" aria-label="Which Cuisine do you fancy?">Which cuisine do you fancy?</label>
-        <div class="filter-container">
-            <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()" aria-label="select a cuisine">
-              <option value="all">All Cuisines</option>
-            </select>
-        </div>
-
-        <div id="results count">
-          <h2 id="results-count"></h2>
-        </div>
-
+          <div id="filter-content">
+            <div id="filters">
+                <div class="filter-container">
+                  <label id="hello" for="neighborhoods-select">Please Select a Neighborhood</label>
+                    <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" aria-labelledby="hello">
+                      <option value="all">All Neighborhoods</option>
+                    </select>
+                </div>
+                <div class="filter-container">
+                  <label for="cuisines-select" aria-label="Which Cuisine do you fancy?">Which cuisine do you fancy?</label>
+                    <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()" aria-label="select a cuisine">
+                      <option value="all">All Cuisines</option>
+                    </select>
+                </div>
+            </div>
+          </div>
+            <div id="results-count-container">
+              <p id="results-count"></p>
+            </div>
       </div>
 
 
 
-      <div id="results-content" aria-label="select a restaurant" tabindex="0">
+      <div id="results-content" aria-label="select a restaurant">
         <ul role=presentation id="restaurants-list" aria-label="List of Restaurants"></ul>
         <!--insert message here for when there are no results-->
       </div>

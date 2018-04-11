@@ -10,9 +10,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
   fetchNeighborhoods();
   fetchCuisines();
 });
-
-
-
 /**
  * Fetch all neighborhoods and set their HTML.
  */
@@ -31,61 +28,6 @@ fetchNeighborhoods = () => {
     }
   });
 };
-
-//TEST REMOVE LATER
-
-// /**
-//  * Create all neighborhoods HTML and add them to the webpage.
-//  */
-// fillNeighborhoodsTestHTML = (neighborhoods = self.neighborhoods) => {
-//     const ul = document.getElementById('neighborhoods-select-test');
-//     neighborhoods.forEach(neighborhood => {
-//         ul.append(createNeighborhoodHTML(neighborhood));
-// });
-// };
-//
-//
-// /**
-//  * Create neighboorhood HTML.
-//  */
-// createNeighborhoodHTML = (neighborhood) => {
-//     console.log('neighborhood');
-//     const li = document.createElement('li');
-//     // li.className = 'list-item';
-//     //Setting a tab index and a role on each list item
-//     li.setAttribute("role", "option");
-//     li.innerHTML = neighborhood;
-//     li.value = neighborhood;
-//     li.tabIndex = 0;
-//     li.id = neighborhood;
-//     li.addEventListener('mouseover', () => {
-//         console.log('mouseover');
-//     // li.setAttribute('aria-activedescendant', li.id);
-// });
-//     return li;
-// };
-
-
-// /**
-//  * Set neighborhoods HTML.
-//  */
-// fillNeighborhoodsTestTestHTML = (neighborhoods = self.neighborhoods) => {
-//     const ul = document.getElementById('neighborhoods-select-test');
-//     neighborhoods.forEach(neighborhood => {
-//         const li = document.createElement('li');
-//     li.setAttribute("role", "option");
-//     li.innerHTML = neighborhood;
-//     li.value = neighborhood;
-//     console.log(li.value);
-//     ul.append(li);
-//     });
-// };
-
-
-
-//TEST REMOVE LATER
-
-
 /**
  * Set neighborhoods HTML.
  */
@@ -98,9 +40,6 @@ fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
     select.append(option);
     });
 }
-
-
-
 /**
  * Fetch all cuisines and set their HTML.
  */
@@ -164,7 +103,6 @@ updateRestaurants = () => {
     }
   })
 }
-
 /**
  * Clear current restaurants, their HTML and remove their map markers.
  */
@@ -173,13 +111,11 @@ resetRestaurants = (restaurants) => {
   self.restaurants = [];
   const ul = document.getElementById('restaurants-list');
   ul.innerHTML = '';
-
   // Remove all map markers
   self.markers.forEach(m => m.setMap(null));
   self.markers = [];
   self.restaurants = restaurants;
 }
-
 /**
  * Create all restaurants HTML and add them to the webpage.
  */
@@ -196,17 +132,18 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
     var resString = setResultString(resultsCount);
     resultHeader.innerHTML = resString;
 }
-
+/**
+ * Create results count.
+ */
 function setResultString(res) {
     var resString;
     if (res) {
-        resString = res + ' results';
+        resString = res + ' Results';
     } else{
-        resString = ' No results';
+        resString = ' No Results';
     }
     return resString;
 }
-
 /**
  * Create restaurant HTML.
  */
@@ -215,24 +152,25 @@ createRestaurantHTML = (restaurant) => {
   li.className = 'list-item';
     //Setting a tab index and a role on each list item
     li.setAttribute("role", "option");
-    li.tabIndex = 0;
 
+    const image = document.createElement('img');
+    image.className = 'restaurant-img';
+    image.src = DBHelper.imageUrlForRestaurant(restaurant);
+    image.srcset = DBHelper.imageSrcsetForRestaurant(restaurant);
+    image.sizes = "22vw";
+    image.title = restaurant.name;
+    image.alt = restaurant.photograph_description;
+    li.append(image);
 
-  const image = document.createElement('img');
-  image.className = 'restaurant-img';
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  image.srcset = DBHelper.imageSrcsetForRestaurant(restaurant);
-  image.sizes = "50vw";
+    const div = document.createElement('div');
+    div.id = 'restaurant-name-container'
+    li.append(div);
 
-  image.title = restaurant.name;
-  image.alt = restaurant.photograph_description;
-  // image.tabIndex = 0;
-  li.append(image);
+    const name = document.createElement('h1');
+    name.innerHTML = restaurant.name;
+    // li.append(name);
+    div.append(name);
 
-  const name = document.createElement('h1');
-  name.innerHTML = restaurant.name;
-    name.tabIndex = 0;
-  li.append(name);
 
   const neighborhood = document.createElement('p');
   neighborhood.innerHTML = restaurant.neighborhood;
@@ -260,7 +198,6 @@ createRestaurantHTML = (restaurant) => {
 
   return li
 }
-
 /**
  * Add markers for current restaurants to the map.
  */
