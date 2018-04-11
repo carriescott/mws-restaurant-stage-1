@@ -22,8 +22,7 @@
         <a href="/">Restaurant Reviews</a>
       </h1>
     </nav>
-
-     <!--Beginning breadcrumb -->
+     <!-- Beginning breadcrumb -->
     <nav aria-label="Breadcrumb" class="breadcrumb">
       <ol id="breadcrumb">
         <li>
@@ -39,39 +38,26 @@
     <!-- End breadcrumb -->
     <!-- End nav -->
   </header>
-
   <!-- End header -->
 
   <!-- Beginning main -->
   <main id="maincontent">
-
-    <!-- Beginning map -->
-    <!--<section id="map-container">-->
-      <!--<div id="map"></div>-->
-    <!--</section>-->
-    <!-- End map -->
-
-    <!-- Beginning restaurant -->
-
-    <card id="restaurant-card" aria-label="Restaurant Information" tabindex="0">
-
-      <!--<section id="map-container">-->
-        <!--<div id="map"></div>-->
-      <!--</section>-->
-
-
-      <section id="restaurant-container" tabindex="0">
-        <h1 id="restaurant-name" tabindex="0"></h1>
+    <card id="restaurant-card" aria-label="Restaurant Information">
+      <section id="restaurant-container">
+        <a href="#restaurant-hours-container" class="skip-map" tabindex="0">
+          Skip to opening times
+        </a>
+        <h1 id="restaurant-name"></h1>
         <div id="map-container">
           <div id="map" role="application" aria-label="Google Map" aria-hidden="true" tabindex="-1"></div>
         </div>
-        <p id="restaurant-cuisine" tabindex="0"></p>
+        <p id="restaurant-cuisine"></p>
 
         <div id="test">
           <div id="restaurant-img-container">
             <img id="restaurant-img" aria-hidden="true">
           </div>
-          <div id="restaurant-hours-container">
+          <div id="restaurant-hours-container" tabindex="0">
             <p id="restaurant-address"></p>
             <table id="restaurant-hours"></table>
           </div>
@@ -80,7 +66,7 @@
       </section>
       <!-- end restaurant -->
       <!-- Beginning reviews -->
-      <section id="reviews-container" aria-label="Reviews" tabindex="0">
+      <section id="reviews-container" aria-label="Reviews">
         <ul id="reviews-list"></ul>
       </section>
       <!-- End reviews -->

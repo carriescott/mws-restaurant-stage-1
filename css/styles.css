@@ -78,6 +78,21 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
     top: 20px;
 }
 
+.skip-map {
+    position: absolute;
+    top: -200px;
+    left: 0px;
+    background: #212121;
+    color: white;
+    padding: 8px;
+    z-index:1000;
+    margin-left: 10px
+}
+
+.skip-map:focus {
+    top: 20px;
+    left:380px;
+}
 /*Add back in once finished*/
 /*.home header {*/
     /*position: fixed;*/
@@ -158,6 +173,7 @@ nav h1 a {
     list-style: none;
     background-color: #eee;
     font-size: 17px;
+    font-family: Roboto;
     margin: 0;
     /*width: calc(50% - 80px);*/
     /*width: 100%;*/
@@ -402,7 +418,7 @@ nav h1 a {
 .inside #map {
     background-color: #ccc;
     border-bottom-style: hidden;
-    /* height: 100%; */
+     height: 250px;
     /*width: 50%;*/
     /*float: right;*/
     /*height:inherit;*/
@@ -417,10 +433,10 @@ nav h1 a {
     margin-right: auto;
 }
 #restaurant-name {
-  color: #f18200;
-  font-family: Arial,sans-serif;
-  font-size: 20pt;
-  font-weight: 200;
+  color: #4285f4;
+  font-family: Roboto;
+  font-size: 16pt;
+  font-weight: 400;
   letter-spacing: 0;
   margin: 15px 0 30px;
 
@@ -450,11 +466,12 @@ nav h1 a {
   /*margin: 10px 0px;*/
 }
 #restaurant-cuisine {
-  background-color: #333;
+  background-color: #4285f4;
   color: #ddd;
   font-size: 12pt;
   font-weight: 300;
   letter-spacing: 10px;
+    font-family: Roboto;
   /*margin: 0 0 20px;*/
   /*padding: 2px 0;*/
     margin-left: 10px;
@@ -479,9 +496,9 @@ nav h1 a {
   /*padding: 30px 40px 80px;*/
 }
 #reviews-container h2 {
-  color: #f58500;
-  font-size: 24pt;
-  font-weight: 300;
+  color: #333;;
+  font-size: 18pt;
+  font-weight: 400;
   letter-spacing: -1px;
   padding-bottom: 1pt;
     padding-left: 10px;
@@ -514,15 +531,19 @@ nav h1 a {
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
 }
 #reviews-list li p {
-  margin: 0 0 10px;
+  margin: 0 0 12px;
+    font-family: Roboto;
+    font-size:10pt;
 }
 #restaurant-hours td {
   color: #666;
 }
-
 #restaurant-hours {
     font-size: 12pt;
     height:83%;
+}
+#reviewer {
+    font-weight:600;
 }
 
 #restaurant-hours-container {
