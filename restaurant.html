@@ -2,95 +2,99 @@
 <html>
 
 <head>
-  <!-- Normalize.css for better cross-browser consistency -->
-  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
-  <!-- Roboto Font-->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700"/>
-  <!-- Main CSS file -->
-  <link rel="stylesheet" href="css/styles.css" type="text/css">
-  <link rel="stylesheet" href="css/responsive.css">
+    <!-- Normalize.css for better cross-browser consistency -->
+    <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css"/>
+    <!-- Roboto Font-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700"/>
+    <!-- Main CSS file -->
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <!-- Responsive CSS file-->
+    <link rel="stylesheet" href="css/responsive.css">
 
-  <title>Restaurant Info</title>
+    <title>Restaurant Info</title>
 </head>
 
 <body class="inside">
-  <!-- Beginning header -->
-  <header>
-    <!-- Beginning nav -->
+
+<header>
     <nav>
-      <h1>
-        <a href="/">Restaurant Reviews</a>
-      </h1>
+        <h1>
+            <a href="/" title="Home - discover places to eat in New York">Restaurant Reviews</a>
+        </h1>
     </nav>
-     <!-- Beginning breadcrumb -->
-    <nav aria-label="Breadcrumb" class="breadcrumb">
-      <ol id="breadcrumb">
-        <li>
-          <a href="/">
-            Home
-          </a>
-        </li>
-        <li>
-          <a href="" aria-current="page" id="current-page"></a>
-        </li>
-      </ol>
+    <nav aria-label="breadcrumb" class="breadcrumb">
+        <ol id="breadcrumb">
+            <li>
+                <a href="/" title="Home - discover places to eat in New York">
+                    Home
+                </a>
+            </li>
+            <li>
+                <a href="" aria-current="page" id="current-page"></a>
+            </li>
+        </ol>
     </nav>
-    <!-- End breadcrumb -->
-    <!-- End nav -->
-  </header>
-  <!-- End header -->
+</header>
 
-  <!-- Beginning main -->
-  <main id="maincontent">
-    <card id="restaurant-card" aria-label="Restaurant Information">
-      <section id="restaurant-container">
-        <a href="#restaurant-hours-container" class="skip-map" tabindex="0">
-          Skip to opening times
-        </a>
-        <h1 id="restaurant-name"></h1>
-        <div id="map-container">
-          <div id="map" role="application" aria-label="Google Map" aria-hidden="true" tabindex="-1"></div>
-        </div>
-        <p id="restaurant-cuisine"></p>
 
-        <div id="test">
-          <div id="restaurant-img-container">
-            <img id="restaurant-img" aria-hidden="true">
-          </div>
-          <div id="restaurant-hours-container" tabindex="0">
-            <p id="restaurant-address"></p>
-            <table id="restaurant-hours"></table>
-          </div>
-        </div>
+<main id="maincontent">
 
-      </section>
-      <!-- end restaurant -->
-      <!-- Beginning reviews -->
-      <section id="reviews-container" aria-label="Reviews">
-        <ul id="reviews-list"></ul>
-      </section>
-      <!-- End reviews -->
+    <card id="restaurant-card" aria-label="restaurant information">
+
+        <section id="restaurant-container">
+
+            <!--skip map-->
+            <a href="#restaurant-hours-container" class="skip-map" tabindex="0">
+                Skip to opening times
+            </a>
+
+            <h1 id="restaurant-name"></h1>
+
+            <section id="map-container">
+                <div id="map" role="application" aria-hidden="true" alt="a map showing the location of the restaurant"></div>
+            </section>
+
+            <p id="restaurant-cuisine"></p>
+
+            <section id="restaurant-info">
+                <div id="restaurant-img-container">
+                    <img id="restaurant-img" aria-hidden="true">
+                </div>
+                <div id="restaurant-hours-container" tabindex="0">
+                    <p id="restaurant-address" aria-label="restaurant address"></p>
+                    <table id="restaurant-hours" aria-label="restaurant opening hours"></table>
+                </div>
+            </section>
+
+        </section>
+
+
+        <!-- Start reviews -->
+        <section id="reviews-container">
+            <ul id="reviews-list" role="presentation" aria-label="restaurant reviews"></ul>
+        </section>
+        <!--End reviews -->
 
     </card>
-  </main>
-  <!-- End main -->
+</main>
 
-  <!-- Beginning footer -->
-  <footer id="footer">
+<!-- Start footer -->
+<footer id="footer">
     <div>
-      Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+        Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
     </div>
-  </footer>
-  <!-- End footer -->
+</footer>
+<!-- End footer -->
 
-  <!-- Beginning scripts -->
-  <!-- Database helpers -->
-  <script type="text/javascript" src="js/dbhelper.js"></script>
-  <!-- Main javascript file -->
-  <script type="text/javascript" src="js/restaurant_info.js"></script>
-  <!-- Google Maps -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0MkF5DWYkZnr82IOjvyGWYlAO_z7QIpY&libraries=places&callback=initMap"></script>
-  <!-- End scripts -->
+<!-- Beginning scripts -->
+<!-- Database helpers -->
+<script type="text/javascript" src="js/dbhelper.js"></script>
+<!-- Main javascript file -->
+<script type="text/javascript" src="js/restaurant_info.js"></script>
+<!-- Google Maps -->
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVpXSjozscmIPLZtimbug8V5mR38PZEpE&libraries=places&callback=initMap"></script>
+<!-- End scripts -->
 
 </body>
 
