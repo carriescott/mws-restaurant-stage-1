@@ -1,3 +1,5 @@
+//Implementation of service worker adapted from 'wittr' github repository https://github.com/jakearchibald/wittr
+
 self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open('restaurant-reviews-v1').then(function(cache) {

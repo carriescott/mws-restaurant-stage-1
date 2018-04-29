@@ -96,10 +96,9 @@
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVpXSjozscmIPLZtimbug8V5mR38PZEpE&libraries=places&callback=initMap"></script>
 <!-- Service Worker-->
+<!--Registration of service worker from https://developers.google.com/web/fundamentals/primers/service-workers/registration-->
 <script type="application/javascript" charset="utf-8">
-
     if ('serviceWorker' in navigator) {
-
         navigator.serviceWorker.register('/sw.js', {scope: './'}).then(function (registration) {
             console.log('Service worker registration succeeded:', registration);
         }).catch(function (error) {
@@ -108,9 +107,7 @@
     } else {
         console.log('Service workers are not supported.');
     }
-
 </script>
-
 
 <!-- End scripts -->
 
