@@ -19,7 +19,8 @@
 
 <header>
     <nav>
-        <h1><a href="/" aria-current="page" title="home - discover places to eat in New York">Restaurant Reviews</a></h1>
+        <h1><a href="/" aria-current="page" title="home - discover places to eat in New York">Restaurant Reviews</a>
+        </h1>
     </nav>
 </header>
 
@@ -65,9 +66,9 @@
 <script type="application/javascript" charset="utf-8">
 
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js', {scope: './'}).then(function(registration) {
+        navigator.serviceWorker.register('/sw.js', {scope: './'}).then(function (registration) {
             console.log('Service worker registration succeeded:', registration);
-        }).catch(function(error) {
+        }).catch(function (error) {
             console.log('Service worker registration failed:', error);
         });
     } else {
@@ -75,9 +76,6 @@
     }
 
 </script>
-
-
-
 
 
 <footer id="footer">

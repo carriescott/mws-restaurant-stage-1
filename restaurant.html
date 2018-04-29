@@ -51,7 +51,8 @@
             <h1 id="restaurant-name"></h1>
 
             <section id="map-container">
-                <div id="map" role="application" aria-hidden="true" alt="a map showing the location of the restaurant"></div>
+                <div id="map" role="application" aria-hidden="true"
+                     alt="a map showing the location of the restaurant"></div>
             </section>
 
             <p id="restaurant-cuisine"></p>
@@ -99,9 +100,9 @@
 
     if ('serviceWorker' in navigator) {
 
-        navigator.serviceWorker.register('/sw.js', {scope: './'}).then(function(registration) {
+        navigator.serviceWorker.register('/sw.js', {scope: './'}).then(function (registration) {
             console.log('Service worker registration succeeded:', registration);
-        }).catch(function(error) {
+        }).catch(function (error) {
             console.log('Service worker registration failed:', error);
         });
     } else {
