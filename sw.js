@@ -59,9 +59,20 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-    event.respondWith(
-        caches.match(event.request).then(function(response) {
-            return response || fetch(event.request);
-        })
+
+    const url = new URL(event.request.url);
+
+    if (url.pathname.startsWith('/restaurant.html')) {
+        event.respondWith(
+            caches.match('restaurant.html')
+                .then(response => response || fetch(event.request))
     );
+        return;
+    }
+
+    // event.respondWith(
+    //     caches.match(event.request).then(function(response) {
+    //         return response || fetch(event.request);
+    //     })
+    // );
 });
