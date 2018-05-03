@@ -65,7 +65,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) =>
     image.srcset = DBHelper.imageSrcsetForRestaurant(restaurant);
     image.sizes = "30vw";
     image.title = restaurant.name;
-    image.alt = 'Image of ' + restaurant.name;
+    image.alt = 'Image of ' + restaurant.name + ' restaurant';
 
     const cuisine = document.getElementById('restaurant-cuisine');
     cuisine.innerHTML = restaurant.cuisine_type;
@@ -155,16 +155,9 @@ createReviewHTML = (review) =>
  */
 fillBreadcrumb = (restaurant = self.restaurant) =>
 {
-    // const breadcrumb = document.getElementById('breadcrumb');
-    // const li = document.createElement('li');
-    // li.innerHTML = restaurant.name;
-    // li.title = restaurant.name;
-    // breadcrumb.appendChild(li);
-
     var linkName = document.getElementById('current-page');
     linkString = restaurant.name;
     linkName.innerHTML = linkString;
-
 }
 
 /**
