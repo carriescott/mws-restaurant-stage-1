@@ -59,20 +59,30 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
+    event.respondWith(
+        caches.match(event.request)
+            .then(function(response) {
+                if (response) {
+                    return response;
+                }
 
-    const url = new URL(event.request.url);
+                var fetchRequest = event.request.clone();
 
-    if (url.pathname.startsWith('/restaurant.html')) {
-        event.respondWith(
-            caches.match('restaurant.html')
-                .then(response => response || fetch(event.request))
+                return fetch(fetchRequest).then(
+                    function(response) {
+                        if(!response || response.status !== 200 || response.type !== 'basic') {
+                            return response;
+                        }
+                        var responseToCache = response.clone();
+
+                        caches.open('restaurant-reviews-v1')
+                            .then(function(cache) {
+                                cache.put(event.request, responseToCache);
+                            });
+
+                        return response;
+                    }
+                );
+            })
     );
-        return;
-    }
-
-    // event.respondWith(
-    //     caches.match(event.request).then(function(response) {
-    //         return response || fetch(event.request);
-    //     })
-    // );
 });

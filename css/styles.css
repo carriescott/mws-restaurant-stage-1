@@ -255,7 +255,7 @@ nav h1 a {
     min-width: 100%;
 }
 
-#restaurants-list li h1 {
+#restaurants-list li h2 {
     color: #4285f4;
     font-family: Roboto;
     font-size: 14pt;
@@ -393,7 +393,7 @@ nav h1 a {
     margin-right: auto;
 }
 
-#reviews-container h2 {
+#reviews-container h3 {
     color: #333;;
     font-size: 18pt;
     font-weight: 400;
