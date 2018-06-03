@@ -7,10 +7,78 @@ class DBHelper {
      * Database URL.
      * Change this to restaurants.json file location on your server.
      */
+    // static get DATABASE_URL() {
+    //     const port = 8000 // Change this to your server port
+    //     return `http://localhost:${port}/data/restaurants.json`;
+    // }
+
     static get DATABASE_URL() {
-        const port = 8000 // Change this to your server port
-        return `http://localhost:${port}/data/restaurants.json`;
+        const port = 1337; // Change this to your server port
+        return `http://localhost:${port}/restaurants`;
     }
+
+    // Full Request Start
+
+    // function handleSuccess () {
+    // console.log( this.responseText );
+    // // the HTML of https://unsplash.com/
+    // }
+
+    // Parse the JSON file
+    // function handleSuccess () {
+    //     const data = JSON.parse( this.responseText ); // convert data from JSON to a JavaScript object
+    //     console.log( data );
+    // }
+
+
+    // function handleError () {
+    //     console.log( 'An error occurred \uD83D\uDE1E' );
+    // }
+
+
+    // const asyncRequestObject = new XMLHttpRequest();
+    // asyncRequestObject.open('GET', 'http://localhost:1337/restaurants');
+    // asyncRequestObject.onload = handleSuccess;
+    // asyncRequestObject.onerror = handleError;
+    // asyncRequestObject.send();
+
+
+    // Full Request End
+
+    // let req = new XMLHttpRequest();
+    // req.open('GET', DBHelper.DATABASE_URL);
+    // req.send();
+
+
+    // fetch(DATABASE_URL, {
+    //     method: 'POST'
+    // });
+    //
+    // fetch('http://localhost:${port}/restaurants');
+    //
+    // fetch(DATABASE_URL);
+    //
+    //
+    // fetch(`http://localhost:1337/restaurants` {
+    // }).then(function(response) {
+    // debugger; // work with the returned response
+    // });
+    //
+    //
+    //
+    // fetch(`http://localhost:1337/restaurants`, {
+    //     headers: {
+    //         Authorization: 'Client-ID abc123'
+    //     }
+    // }).then(function(response) {
+    //     return response.json();
+    // }).then(addImage);
+    //
+    // function addImage(data) {
+    //     debugger;
+    // }
+    
+
 
     /**
      * Fetch all restaurants.
@@ -22,7 +90,8 @@ class DBHelper {
         {
             if (xhr.status === 200) { // Got a success response from server!
                 const json = JSON.parse(xhr.responseText);
-                const restaurants = json.restaurants;
+                console.log(json);
+                const restaurants = json;
                 callback(null, restaurants);
             } else { // Oops!. Got an error from server.
                 const error = (`Request failed. Returned status of ${xhr.status}`);
@@ -131,8 +200,7 @@ class DBHelper {
                 callback(error, null);
             } else {
                 // Get all neighborhoods from all restaurants
-                const neighborhoods = restaurants.map((v, i) => restaurants[i].neighborhood
-    )
+                const neighborhoods = restaurants.map((v, i) => restaurants[i].neighborhood)
         // Remove duplicates from neighborhoods
         const uniqueNeighborhoods = neighborhoods.filter((v, i) => neighborhoods.indexOf(v) == i
     )
@@ -167,6 +235,7 @@ class DBHelper {
      * Restaurant page URL.
      */
     static urlForRestaurant(restaurant) {
+        console.log('restaurant', restaurant);
         return (`./restaurant.html?id=${restaurant.id}`);
     }
 
@@ -174,14 +243,15 @@ class DBHelper {
      * Restaurant image URL.
      */
     static imageUrlForRestaurant(restaurant) {
-        return (`/img/${restaurant.photograph}`);
+        console.log('restaurant photograph', restaurant.photograph);
+        return (`/img/${restaurant.photograph}.jpg`);
     }
 
     /**
      * Restaurant image srcset.
      */
     static imageSrcsetForRestaurant(restaurant) {
-        return (`/img/responsive/800w/${restaurant.photograph} 800w, /img/responsive/480w/${restaurant.photograph} 480w, /img/responsive/360w/${restaurant.photograph} 360w`);
+        return (`/img/responsive/800w/${restaurant.photograph}.jpg 800w, /img/responsive/480w/${restaurant.photograph}.jpg 480w, /img/responsive/360w/${restaurant.photograph}.jpg 360w`);
     }
 
     /**
