@@ -7,7 +7,6 @@ self.addEventListener('install', function(event) {
                 '/',
                 'css/responsive.css',
                 'css/styles.css',
-                'data/restaurants.json',
                 'js/dbhelper.js',
                 'js/main.js',
                 'js/restaurant_info.js',
@@ -23,6 +22,7 @@ self.addEventListener('install', function(event) {
                 'img/8.jpg',
                 'img/9.jpg',
                 'img/10.jpg',
+                'img/default.jpg',
                 'img/responsive/360w/1.jpg',
                 'img/responsive/360w/2.jpg',
                 'img/responsive/360w/3.jpg',
@@ -33,6 +33,7 @@ self.addEventListener('install', function(event) {
                 'img/responsive/360w/8.jpg',
                 'img/responsive/360w/9.jpg',
                 'img/responsive/360w/10.jpg',
+                'img/responsive/360w/default.jpg',
                 'img/responsive/480w/1.jpg',
                 'img/responsive/480w/2.jpg',
                 'img/responsive/480w/3.jpg',
@@ -43,6 +44,7 @@ self.addEventListener('install', function(event) {
                 'img/responsive/480w/8.jpg',
                 'img/responsive/480w/9.jpg',
                 'img/responsive/480w/10.jpg',
+                'img/responsive/480w/default.jpg',
                 'img/responsive/800w/1.jpg',
                 'img/responsive/800w/2.jpg',
                 'img/responsive/800w/3.jpg',
@@ -53,6 +55,7 @@ self.addEventListener('install', function(event) {
                 'img/responsive/800w/8.jpg',
                 'img/responsive/800w/9.jpg',
                 'img/responsive/800w/10.jpg',
+                'img/responsive/800w/default.jpg',
             ]);
         })
     );

@@ -203,6 +203,7 @@ createRestaurantHTML = (restaurant) =>
  */
 addMarkersToMap = (restaurants = self.restaurants) =>
 {
+    console.log('restaurantsMain', restaurants);
     restaurants.forEach(restaurant => {
         // Add marker to the map
         const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
