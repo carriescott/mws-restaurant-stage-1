@@ -1,6 +1,6 @@
 let restaurant;
 var map;
-
+var favorite_btn = document.createElement('button');
 /**
  * Initialize Google map, called from HTML.
  */
@@ -53,11 +53,33 @@ fetchRestaurantFromURL = (callback) =>
  */
 fillRestaurantHTML = (restaurant = self.restaurant) =>
 {
+
+
     const name = document.getElementById('restaurant-name');
     name.innerHTML = restaurant.name;
+    const id = self.restaurant.id;
+    console.log('restaurant id', id);
 
     // fill favourite restaurant
-    fillFavouriteRestaurantHTML();
+    // fillFavouriteRestaurantHTML();
+    const favorite = document.getElementById('favorite-restaurant');
+    const favorite_btn = document.createElement('button')
+    const is_favorite = self.restaurant.is_favorite;
+
+    if (is_favorite === 'true' || is_favorite === true ) {
+        favorite_btn.innerHTML = 'Remove from Favorites';
+        // favorite_btn.setAttribute('onclick', toggleFavorite(restaurant.id, false));
+        favorite_btn.setAttribute('onclick', 'toggleFavorite(id, false)');
+
+    } else{
+        favorite_btn.innerHTML = 'Add to Favorites';
+        // favorite_btn.setAttribute('onclick', toggleFavorite(restaurant.id, true));
+        favorite_btn.setAttribute('onclick', 'toggleFavorite(id, true)');
+
+    }
+
+    favorite.appendChild(favorite_btn);
+
 
     const address = document.getElementById('restaurant-address');
     address.innerHTML = restaurant.address;
@@ -79,21 +101,44 @@ fillRestaurantHTML = (restaurant = self.restaurant) =>
     if (restaurant.operating_hours) {
         fillRestaurantHoursHTML();
     }
-    // leave review form
-    // fillReviewFormHTML();
+    // create review form
+    // createReviewFormHTML();
     // fill reviews
     fillReviewsHTML();
 }
 
 
-fillFavouriteRestaurantHTML = (is_favorite = self.restaurant.is_favorite, id = self.restaurant.restaurant_id) =>
-{
-    const favorite = document.getElementById('favorite-restaurant');
-    const favorite_btn = document.createElement('button');
-    favorite_btn.innerHTML = 'Add to Favorite';
-    favorite.append(favorite_btn);
-}
+// fillFavouriteRestaurantHTML = (is_favorite = self.restaurant.is_favorite, id = self.restaurant.id) =>
+// {
+//     console.log('is favorite', is_favorite);
+//     console.log('id', id);
+//     const favorite = document.getElementById('favorite-restaurant');
+//
+//     if (is_favorite === 'true' || is_favorite === true ){
+//         favorite_btn.innerHTML = 'Remove from Favorites';
+//         // favorite_btn.setAttribute('onclick', DBHelper.toggleFavorite(id, true) );
+//         favorite_btn.setAttribute('onclick', toggleFavorite(false, id) );
+//
+//     } else {
+//         favorite_btn.innerHTML = 'Add to Favorites ';
+//         // favorite_btn.setAttribute('onclick', DBHelper.toggleFavorite(id, false) );
+//         favorite_btn.setAttribute('onclick', toggleFavorite(true, id) );
+//     }
+//
+//     favorite.append(favorite_btn);
+// }
+//
+//
+function toggleFavorite(id, status){
 
+    const favorite = status;
+    console.log('hello');
+    if (favorite === false || favorite === 'false') {
+        favorite_btn.innerHTML = 'Add to Favorites';
+    } else {
+        favorite_btn.innerHTML = 'Remove from Favorites';
+    }
+}
 
 
 /**
@@ -116,6 +161,12 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) =>
         hours.appendChild(row);
     }
 }
+
+// createReviewFormHTML = (id = self.restaurant.restaurant_id){
+//
+// }
+
+
 
 /**
  * Create all reviews HTML and add them to the webpage.
