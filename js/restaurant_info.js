@@ -63,19 +63,18 @@ fillRestaurantHTML = (restaurant = self.restaurant) =>
     // fill favourite restaurant
     // fillFavouriteRestaurantHTML();
     const favorite = document.getElementById('favorite-restaurant');
-    const favorite_btn = document.createElement('button')
+    // const favorite_btn = document.createElement('button')
     const is_favorite = self.restaurant.is_favorite;
 
     if (is_favorite === 'true' || is_favorite === true ) {
         favorite_btn.innerHTML = 'Remove from Favorites';
         // favorite_btn.setAttribute('onclick', toggleFavorite(restaurant.id, false));
-        favorite_btn.setAttribute('onclick', 'toggleFavorite(id, false)');
+        favorite_btn.setAttribute('onclick', 'toggleFavorite(self.restaurant.id, false)');
 
     } else{
         favorite_btn.innerHTML = 'Add to Favorites';
         // favorite_btn.setAttribute('onclick', toggleFavorite(restaurant.id, true));
-        favorite_btn.setAttribute('onclick', 'toggleFavorite(id, true)');
-
+        favorite_btn.setAttribute('onclick', 'toggleFavorite(self.restaurant.id, true)');
     }
 
     favorite.appendChild(favorite_btn);
@@ -132,11 +131,16 @@ fillRestaurantHTML = (restaurant = self.restaurant) =>
 function toggleFavorite(id, status){
 
     const favorite = status;
+    console.log('status', status);
+    console.log('id', id);
     console.log('hello');
+
     if (favorite === false || favorite === 'false') {
         favorite_btn.innerHTML = 'Add to Favorites';
+        console.log(favorite_btn.innerHTML);
     } else {
         favorite_btn.innerHTML = 'Remove from Favorites';
+        console.log(favorite_btn.innerHTML);
     }
 }
 
