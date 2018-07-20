@@ -107,7 +107,6 @@ fillFavouriteRestaurantHTML = (is_favorite = self.restaurant.is_favorite, id = s
         favorite_btn.setAttribute('onclick', 'toggleFavorite(self.restaurant.id, true)');
     }
 
-
 }
 
 
@@ -118,21 +117,23 @@ function toggleFavorite(id, status){
     console.log('id', id);
     console.log('hello');
 
-    DBHelper.setFavoriteStatus (id, status);
+    DBHelper.setFavoriteStatus (id, status)
+        .then(function(response) {
+            const data = response;
+            console.log('data', data);
+            console.log('is favorite', data.is_favorite);
 
-    // fillFavouriteRestaurantHTML();
+            fillFavouriteRestaurantHTML (data.is_favorite, data.id);
 
+            // if (data.is_favorite === false || data.is_favorite === 'false') {
+            //     favorite_btn.innerHTML = 'Add to Favorites';
+            //     console.log(favorite_btn.innerHTML);
+            // } else {
+            //     favorite_btn.innerHTML = 'Remove from Favorites';
+            //     console.log(favorite_btn.innerHTML);
+            // }
 
-    if (favorite === false || favorite === 'false') {
-        favorite_btn.innerHTML = 'Add to Favorites';
-        console.log(favorite_btn.innerHTML);
-    } else {
-        favorite_btn.innerHTML = 'Remove from Favorites';
-        console.log(favorite_btn.innerHTML);
-    }
-
-
-    // DBHelper.setFavoriteStatus(id, status);
+        });
 }
 
 
