@@ -125,13 +125,6 @@ function toggleFavorite(id, status){
 
             fillFavouriteRestaurantHTML (data.is_favorite, data.id);
 
-            // if (data.is_favorite === false || data.is_favorite === 'false') {
-            //     favorite_btn.innerHTML = 'Add to Favorites';
-            //     console.log(favorite_btn.innerHTML);
-            // } else {
-            //     favorite_btn.innerHTML = 'Remove from Favorites';
-            //     console.log(favorite_btn.innerHTML);
-            // }
 
         });
 }
