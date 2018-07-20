@@ -60,25 +60,10 @@ fillRestaurantHTML = (restaurant = self.restaurant) =>
     const id = self.restaurant.id;
     console.log('restaurant id', id);
 
-    // fill favourite restaurant
-    // fillFavouriteRestaurantHTML();
     const favorite = document.getElementById('favorite-restaurant');
-    // const favorite_btn = document.createElement('button')
-    const is_favorite = self.restaurant.is_favorite;
-
-    if (is_favorite === 'true' || is_favorite === true ) {
-        favorite_btn.innerHTML = 'Remove from Favorites';
-        // favorite_btn.setAttribute('onclick', toggleFavorite(restaurant.id, false));
-        favorite_btn.setAttribute('onclick', 'toggleFavorite(self.restaurant.id, false)');
-
-    } else{
-        favorite_btn.innerHTML = 'Add to Favorites';
-        // favorite_btn.setAttribute('onclick', toggleFavorite(restaurant.id, true));
-        favorite_btn.setAttribute('onclick', 'toggleFavorite(self.restaurant.id, true)');
-    }
+    fillFavouriteRestaurantHTML();
 
     favorite.appendChild(favorite_btn);
-
 
     const address = document.getElementById('restaurant-address');
     address.innerHTML = restaurant.address;
@@ -107,33 +92,36 @@ fillRestaurantHTML = (restaurant = self.restaurant) =>
 }
 
 
-// fillFavouriteRestaurantHTML = (is_favorite = self.restaurant.is_favorite, id = self.restaurant.id) =>
-// {
-//     console.log('is favorite', is_favorite);
-//     console.log('id', id);
-//     const favorite = document.getElementById('favorite-restaurant');
-//
-//     if (is_favorite === 'true' || is_favorite === true ){
-//         favorite_btn.innerHTML = 'Remove from Favorites';
-//         // favorite_btn.setAttribute('onclick', DBHelper.toggleFavorite(id, true) );
-//         favorite_btn.setAttribute('onclick', toggleFavorite(false, id) );
-//
-//     } else {
-//         favorite_btn.innerHTML = 'Add to Favorites ';
-//         // favorite_btn.setAttribute('onclick', DBHelper.toggleFavorite(id, false) );
-//         favorite_btn.setAttribute('onclick', toggleFavorite(true, id) );
-//     }
-//
-//     favorite.append(favorite_btn);
-// }
-//
-//
+fillFavouriteRestaurantHTML = (is_favorite = self.restaurant.is_favorite, id = self.restaurant.id) =>
+{
+    console.log('is favorite', is_favorite);
+    console.log('id', id);
+    // const favorite = document.getElementById('favorite-restaurant');
+
+    if (is_favorite === 'true' || is_favorite === true ) {
+        favorite_btn.innerHTML = 'Remove from Favorites';
+        favorite_btn.setAttribute('onclick', 'toggleFavorite(self.restaurant.id, false)');
+
+    } else{
+        favorite_btn.innerHTML = 'Add to Favorites';
+        favorite_btn.setAttribute('onclick', 'toggleFavorite(self.restaurant.id, true)');
+    }
+
+
+}
+
+
 function toggleFavorite(id, status){
 
     const favorite = status;
     console.log('status', status);
     console.log('id', id);
     console.log('hello');
+
+    DBHelper.setFavoriteStatus (id, status);
+
+    // fillFavouriteRestaurantHTML();
+
 
     if (favorite === false || favorite === 'false') {
         favorite_btn.innerHTML = 'Add to Favorites';
@@ -143,8 +131,11 @@ function toggleFavorite(id, status){
         console.log(favorite_btn.innerHTML);
     }
 
-    DBHelper.setFavoriteStatus(id, status);
+
+    // DBHelper.setFavoriteStatus(id, status);
 }
+
+
 
 
 /**

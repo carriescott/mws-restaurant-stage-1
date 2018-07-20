@@ -244,7 +244,7 @@ class DBHelper {
         );
         return marker;
     }
-    
+
     /**
      * Set Favorite Status
      */
@@ -252,7 +252,26 @@ class DBHelper {
     static setFavoriteStatus(id, status) {
                 console.log('set id', id);
                 console.log('set status', status);
-                fetch(`http://localhost:1337/restaurants/${id}/?is_favorite=${status}`, {method: 'PUT'})
-            }
+
+                return fetch(`http://localhost:1337/restaurants/${id}/?is_favorite=${status}`,
+                    {method: 'PUT'
+                    })
+                    .then(function(response) {
+                            console.log('response', response);
+                            // Read the response as json.
+                            return response.json();
+                        })
+                    .then(function(responseAsJson) {
+                                const data = responseAsJson;
+                                console.log('data', data);
+                                return data;
+                                // callback(null, restaurants);
+                                //Add data to indexedBD
+                                // DBHelper.addToIDB('restaurant', restaurants);
+                            })
+                    .catch(error => {
+                                console.log(error);
+                    });
+    }
 }
 
