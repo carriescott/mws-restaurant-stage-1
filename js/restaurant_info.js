@@ -142,6 +142,8 @@ function toggleFavorite(id, status){
         favorite_btn.innerHTML = 'Remove from Favorites';
         console.log(favorite_btn.innerHTML);
     }
+
+    DBHelper.setFavoriteStatus(id, status);
 }
 
 

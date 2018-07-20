@@ -244,16 +244,15 @@ class DBHelper {
         );
         return marker;
     }
-
-
+    
     /**
-     * Toggle favourite
+     * Set Favorite Status
      */
 
-    static toggleFavorite(id, favoriteStatus) {
-        console.log('id', id);
-        fetch(`http://localhost:1337/restaurants/${id}/?is_favorite=${favoriteStatus}`, {method: 'PUT'})
-
+    static setFavoriteStatus(id, status) {
+                console.log('set id', id);
+                console.log('set status', status);
+                fetch(`http://localhost:1337/restaurants/${id}/?is_favorite=${status}`, {method: 'PUT'})
             }
 }
 
