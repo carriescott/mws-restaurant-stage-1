@@ -1,6 +1,21 @@
 const dbPromise = idb.open('restaurant-details', 1, upgradeDB => {
     upgradeDB.createObjectStore('restaurants');
+    upgradeDB.createObjectStore('favorite-restaurants');
+    upgradeDB.createObjectStore('restaurant-reviews');
 });
+
+
+// const dbPromise = idb.open('restaurant-details', 1, function(upgradeDb) {
+//     if (!upgradeDb.objectStoreNames.contains('restaurants')) {
+//         upgradeDb.createObjectStore('restaurants');
+//     }
+//     if (!upgradeDb.objectStoreNames.contains('favorite-restaurants')) {
+//         upgradeDb.createObjectStore('favorite-restaurants');
+//     }
+//     if (!upgradeDb.objectStoreNames.contains('restaurant-reviews')) {
+//         upgradeDb.createObjectStore('restaurant-reviews');
+//     }
+// });
 
 /**
  * Common database helper functions.
@@ -20,14 +35,44 @@ class DBHelper {
         });
     }
 
-    static addToIDB(key, val) {
+    static addToIDB(key, val, objectStore) {
         return dbPromise.then(db => {
-            const tx = db.transaction('restaurants', 'readwrite');
-        tx.objectStore('restaurants').put(val, key);
+            const tx = db.transaction(objectStore, 'readwrite');
+        tx.objectStore(objectStore).put(val, key);
         console.log('finished adding data');
         return tx.complete;
         });
     }
+
+
+    static deleteFromIDB(key, objectStore) {
+        return dbPromise.then(db => {
+            const tx = db.transaction(objectStore, 'readwrite');
+        tx.objectStore(objectStore).delete(key);
+        return tx.complete;
+        });
+    }
+
+    // static removeFromIDB (key, objectStore) {
+    //     return dbPromise.then(db => {
+    //         const tx = db.transaction('objectStore', 'readwrite');
+    //     tx.objectStore(objectStore).delete(key);
+    //     return tx.complete;
+    //     });
+    // }
+    //
+    //
+    // delete(key) {
+    //     return dbPromise.then(db => {
+    //         const tx = db.transaction('keyval', 'readwrite');
+    //     tx.objectStore('keyval').delete(key);
+    //     return tx.complete;
+    // });
+    // },
+
+
+
+
 
     static get DATABASE_URL() {
         const port = 1337; // Change this to your server port
@@ -52,7 +97,7 @@ class DBHelper {
                 console.log('restaurants', restaurants);
                 callback(null, restaurants);
                 //Add data to indexedBD
-                DBHelper.addToIDB('restaurant', restaurants);
+                DBHelper.addToIDB('restaurant', restaurants, 'restaurants');
             })
             .catch(function(error) {
                 var IDB = DBHelper.getFromIDB('restaurant');
@@ -265,9 +310,9 @@ class DBHelper {
                                 const data = responseAsJson;
                                 console.log('data', data);
                                 return data;
-                                // callback(null, restaurants);
-                                //Add data to indexedBD
-                                // DBHelper.addToIDB('restaurant', restaurants);
+                                // DBHelper.addToIDB('favorite-restaurants', data);
+                        // callback(null, restaurants);
+                        //Add data to indexedBD
                             })
                     .catch(error => {
                                 console.log(error);

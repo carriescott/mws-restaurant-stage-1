@@ -54,7 +54,6 @@ fetchRestaurantFromURL = (callback) =>
 fillRestaurantHTML = (restaurant = self.restaurant) =>
 {
 
-
     const name = document.getElementById('restaurant-name');
     name.innerHTML = restaurant.name;
     const id = self.restaurant.id;
@@ -109,7 +108,6 @@ fillFavouriteRestaurantHTML = (is_favorite = self.restaurant.is_favorite, id = s
 
 }
 
-
 function toggleFavorite(id, status){
 
     const favorite = status;
@@ -122,12 +120,19 @@ function toggleFavorite(id, status){
             const data = response;
             console.log('data', data);
             console.log('is favorite', data.is_favorite);
-
             fillFavouriteRestaurantHTML (data.is_favorite, data.id);
 
-
+            if(data.is_favorite === 'true' || data.is_favorite === true) {
+                DBHelper.addToIDB(id, data, 'favorite-restaurants');
+            } else {
+                // DBHelper.addToIDB(id, data, 'favorite-restaurants');
+                DBHelper.deleteFromIDB(id, 'favorite-restaurants');
+            }
         });
 }
+
+
+
 
 
 
