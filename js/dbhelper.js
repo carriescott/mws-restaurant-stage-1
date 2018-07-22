@@ -4,19 +4,6 @@ const dbPromise = idb.open('restaurant-details', 1, upgradeDB => {
     upgradeDB.createObjectStore('restaurant-reviews');
 });
 
-
-// const dbPromise = idb.open('restaurant-details', 1, function(upgradeDb) {
-//     if (!upgradeDb.objectStoreNames.contains('restaurants')) {
-//         upgradeDb.createObjectStore('restaurants');
-//     }
-//     if (!upgradeDb.objectStoreNames.contains('favorite-restaurants')) {
-//         upgradeDb.createObjectStore('favorite-restaurants');
-//     }
-//     if (!upgradeDb.objectStoreNames.contains('restaurant-reviews')) {
-//         upgradeDb.createObjectStore('restaurant-reviews');
-//     }
-// });
-
 /**
  * Common database helper functions.
  */
@@ -52,26 +39,6 @@ class DBHelper {
         return tx.complete;
         });
     }
-
-    // static removeFromIDB (key, objectStore) {
-    //     return dbPromise.then(db => {
-    //         const tx = db.transaction('objectStore', 'readwrite');
-    //     tx.objectStore(objectStore).delete(key);
-    //     return tx.complete;
-    //     });
-    // }
-    //
-    //
-    // delete(key) {
-    //     return dbPromise.then(db => {
-    //         const tx = db.transaction('keyval', 'readwrite');
-    //     tx.objectStore('keyval').delete(key);
-    //     return tx.complete;
-    // });
-    // },
-
-
-
 
 
     static get DATABASE_URL() {
@@ -290,13 +257,20 @@ class DBHelper {
         return marker;
     }
 
+
+     static saveOffline(event, form) {
+        event.preventDefault();
+        console.log('save offline', form);
+        console.log(form.name.value);
+        console.log(form.comments.value);
+
+     }
+
     /**
      * Set Favorite Status
      */
 
     static setFavoriteStatus(id, status) {
-                console.log('set id', id);
-                console.log('set status', status);
 
                 return fetch(`http://localhost:1337/restaurants/${id}/?is_favorite=${status}`,
                     {method: 'PUT'
@@ -312,7 +286,6 @@ class DBHelper {
                                 return data;
                                 // DBHelper.addToIDB('favorite-restaurants', data);
                         // callback(null, restaurants);
-                        //Add data to indexedBD
                             })
                     .catch(error => {
                                 console.log(error);

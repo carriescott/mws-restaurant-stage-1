@@ -85,7 +85,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) =>
         fillRestaurantHoursHTML();
     }
     // create review form
-    // createReviewFormHTML();
+    createReviewFormHTML();
     // fill reviews
     fillReviewsHTML();
 }
@@ -95,7 +95,6 @@ fillFavouriteRestaurantHTML = (is_favorite = self.restaurant.is_favorite, id = s
 {
     console.log('is favorite', is_favorite);
     console.log('id', id);
-    // const favorite = document.getElementById('favorite-restaurant');
 
     if (is_favorite === 'true' || is_favorite === true ) {
         favorite_btn.innerHTML = 'Remove from Favorites';
@@ -109,11 +108,6 @@ fillFavouriteRestaurantHTML = (is_favorite = self.restaurant.is_favorite, id = s
 }
 
 function toggleFavorite(id, status){
-
-    const favorite = status;
-    console.log('status', status);
-    console.log('id', id);
-    console.log('hello');
 
     DBHelper.setFavoriteStatus (id, status)
         .then(function(response) {
@@ -130,12 +124,6 @@ function toggleFavorite(id, status){
             }
         });
 }
-
-
-
-
-
-
 
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
@@ -157,12 +145,6 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) =>
         hours.appendChild(row);
     }
 }
-
-// createReviewFormHTML = (id = self.restaurant.restaurant_id){
-//
-// }
-
-
 
 /**
  * Create all reviews HTML and add them to the webpage.
@@ -214,6 +196,58 @@ createReviewHTML = (review) =>
 
     return li;
 }
+
+/**
+* Create review HTML and add it to the webpage.
+*/
+
+createReviewFormHTML = (id = self.restaurant.id) =>
+{
+    console.log (id);
+
+    const form = document.getElementById('review-form');
+    const reviewForm = document.createElement('form');
+
+    reviewForm.setAttribute("action", "");
+    // reviewForm.setAttribute("method", "post");
+    reviewForm.setAttribute('onSubmit', 'DBHelper.saveOffline(event,this)');
+    form.appendChild(reviewForm);
+
+    const heading = document.createElement('h2'); // Heading of Form
+    heading.innerHTML = "Add a Review?";
+    reviewForm.appendChild(heading);
+
+    const nameLabel = document.createElement('label'); // Create Label for Name Field
+    nameLabel.innerHTML = "Name : "; // Set Field Labels
+    reviewForm.appendChild(nameLabel);
+
+    // const restaurantID = document.createElement('input');
+    // restaurantID.setAttribute("type", "number");
+    // restaurantID.setAttribute("name", "restaurant_id");
+
+
+    const inputElement = document.createElement('input'); // Create Input Field for Name
+    inputElement.setAttribute("type", "text");
+    inputElement.setAttribute("name", "name");
+    reviewForm.appendChild(inputElement);
+
+    const textAreaElement = document.createElement('textarea');
+    textAreaElement.setAttribute("name", "comments");
+    reviewForm.appendChild(textAreaElement);
+
+    const submitElement = document.createElement('input'); // Append Submit Button
+    submitElement.setAttribute("type", "submit");
+    submitElement.setAttribute("name", "dsubmit");
+    submitElement.setAttribute("value", "Submit");
+    reviewForm.appendChild(submitElement);
+
+
+}
+
+
+
+
+
 
 /**
  * Add restaurant name to the breadcrumb navigation menu
