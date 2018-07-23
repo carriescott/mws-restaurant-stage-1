@@ -125,6 +125,36 @@ function toggleFavorite(id, status){
         });
 }
 
+// function postReviewToDatabase(event, form){
+//
+//     event.preventDefault();
+//
+//     console.log('form', form);
+//
+//     const formObject = {
+//         "restaurant_id": form.id.value,
+//         "name": form.name.value,
+//         "comments": form.comments.value,
+//     };
+//
+//     DBHelper.addToIDB(formObject.id.value, formObject, 'restaurant-reviews');
+//
+//
+//     // DBHelper.postReviewToDatabase(formObject);
+//     //     .then(function(response) {
+//     //         const data = response;
+//     //         console.log('formObject', data);
+//     //         DBHelper.addToIDB(formObject.id.value, formObject, 'restaurant-reviews');
+//     //     // fillFavouriteRestaurantHTML (data.is_favorite, data.id);
+//     //
+//     //     });
+// }
+
+
+
+
+
+
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
  */
@@ -208,45 +238,70 @@ createReviewFormHTML = (id = self.restaurant.id) =>
     const form = document.getElementById('review-form');
     const reviewForm = document.createElement('form');
 
-    reviewForm.setAttribute("action", "");
+    // reviewForm.setAttribute("action", "http://localhost:1337/reviews/");
     // reviewForm.setAttribute("method", "post");
     reviewForm.setAttribute('onSubmit', 'DBHelper.saveOffline(event,this)');
+    // reviewForm.setAttribute('onSubmit', 'DBHelper.postReviewToDatabase(event,this)');
+    // reviewForm.setAttribute('onSubmit', 'postReviewToDatabase(event,this)');
     form.appendChild(reviewForm);
 
-    const heading = document.createElement('h2'); // Heading of Form
-    heading.innerHTML = "Add a Review?";
-    reviewForm.appendChild(heading);
+    const title = document.createElement('h2'); // Heading of Form
+    title.innerHTML = "Add a Review?";
+    reviewForm.appendChild(title);
 
     const nameLabel = document.createElement('label'); // Create Label for Name Field
     nameLabel.innerHTML = "Name : "; // Set Field Labels
     reviewForm.appendChild(nameLabel);
 
-    // const restaurantID = document.createElement('input');
-    // restaurantID.setAttribute("type", "number");
-    // restaurantID.setAttribute("name", "restaurant_id");
+    const restaurantID = document.createElement('input');
+    restaurantID.setAttribute("type", "hidden");
+    restaurantID.setAttribute("name", "id");
+    restaurantID.setAttribute("value", `${id}`);
+    reviewForm.appendChild(restaurantID);
 
 
-    const inputElement = document.createElement('input'); // Create Input Field for Name
-    inputElement.setAttribute("type", "text");
-    inputElement.setAttribute("name", "name");
-    reviewForm.appendChild(inputElement);
+    // const ratingSelect = document.createElement("select");
+    // ratingSelect.setAttribute("id", "ratingSelect");
+    // document.body.appendChild(ratingSelect);
+    //
+    // const selectOption = document.createElement("option");
+    // selectOption.setAttribute("value", "1");
+    // const selectText = document.createTextNode("1");
+    // selectOption.appendChild(selectText);
+    // document.getElementById("ratingSelect").appendChild(selectOption);
+    //
+    // reviewForm.appendChild(ratingSelect);
 
-    const textAreaElement = document.createElement('textarea');
-    textAreaElement.setAttribute("name", "comments");
-    reviewForm.appendChild(textAreaElement);
+    // var x = document.createElement("SELECT");
+    // x.setAttribute("id", "mySelect");
+    // document.body.appendChild(x);
+    //
+    // var z = document.createElement("option");
+    // z.setAttribute("value", "volvocar");
+    // var t = document.createTextNode("Volvo");
+    // z.appendChild(t);
+    // document.getElementById("mySelect").appendChild(z);
+    //
+    // reviewForm.appendChild(x);
 
-    const submitElement = document.createElement('input'); // Append Submit Button
-    submitElement.setAttribute("type", "submit");
-    submitElement.setAttribute("name", "dsubmit");
-    submitElement.setAttribute("value", "Submit");
-    reviewForm.appendChild(submitElement);
+
+    const name = document.createElement('input'); // Create Input Field for Name
+    name.setAttribute("type", "text");
+    name.setAttribute("name", "name");
+    reviewForm.appendChild(name);
+
+    const comments = document.createElement('textarea');
+    comments.setAttribute("name", "comments");
+    reviewForm.appendChild(comments);
+
+    const submit = document.createElement('input'); // Append Submit Button
+    submit.setAttribute("type", "submit");
+    submit.setAttribute("name", "dsubmit");
+    submit.setAttribute("value", "Submit");
+    reviewForm.appendChild(submit);
 
 
 }
-
-
-
-
 
 
 /**

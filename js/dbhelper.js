@@ -260,13 +260,52 @@ class DBHelper {
 
      static saveOffline(event, form) {
         event.preventDefault();
-        console.log('save offline', form);
-        console.log(form.name.value);
-        console.log(form.comments.value);
+
+         console.log('save offline', form);
+         console.log(form.name.value);
+         console.log(form.comments.value);
+         console.log(form.id.value);
+
+        const formObject = {
+            "restaurant_id": form.id.value,
+            "name": form.name.value,
+            "comments": form.comments.value,
+         };
+
+        DBHelper.addToIDB(form.id.value, formObject, 'restaurant-reviews');
+        DBHelper.postReviewToDatabase(formObject);
 
      }
 
-    /**
+    static postReviewToDatabase(formObject) {
+
+    return fetch(`http://localhost:1337/reviews/`,
+        {method: 'POST',
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            // "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: JSON.stringify(formObject), // body data type must match "Content-Type" header
+    })
+        .then(function(response) {
+            console.log('response', response);
+            // Read the response as json.
+            return response.json();
+        })
+        .then(function(responseAsJson) {
+            const data = responseAsJson;
+            console.log('data', data);
+            return data;
+            // DBHelper.addToIDB('favorite-restaurants', data);
+            // callback(null, restaurants);
+        })
+        .catch(error => {
+        console.log(error);
+        });
+    }
+
+
+/**
      * Set Favorite Status
      */
 
