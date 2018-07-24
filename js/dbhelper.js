@@ -46,6 +46,12 @@ class DBHelper {
         return `http://localhost:${port}/restaurants`;
     }
 
+
+    static get DATABASE_URL_Review() {
+        const port = 1337; // Change this to your server port
+        return `http://localhost:${port}/reviews`;
+    }
+
     /**
      * Fetch all restaurants from the database and store it in an idb.
      */
@@ -80,6 +86,66 @@ class DBHelper {
             });
     }
 
+
+
+    /**
+     * Fetch all reviews from the database and store it in an idb.
+     */
+
+
+    static fetchReview(callback) {
+
+        fetch(DBHelper.DATABASE_URL_Review)
+
+            .then(function (response) {
+                console.log('response', response);
+                // Read the response as json.
+                return response.json();
+            })
+            .then(function (responseAsJson) {
+                const review = responseAsJson;
+                console.log('review', review);
+                callback(null, review);
+                //Add data to indexedBD
+                // DBHelper.addToIDB('restaurant', restaurants, 'restaurants');
+            })
+            .catch(function (error) {
+                // var IDB = DBHelper.getFromIDB('restaurant');
+                console.log('Looks like there was a problem: \n', error);
+                // IDB.then(function(result) {
+                //     const myRestaurant = result;
+                //     callback(null, myRestaurant);
+                //     console.log(myRestaurant);
+                // }, function(err) {
+                //     console.log(err);
+                // });
+
+            });
+
+    }
+
+
+    /**
+     * Fetch a review by restaurant ID.
+     */
+    static fetchReviewById(id, callback) {
+        // fetch all restaurants with proper error handling.
+        DBHelper.fetchReview((error, reviews) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                const review = reviews.find(r => r.restaurant_id == id
+    )
+        ;
+        if (review) { // Got the restaurant
+            callback(null, review);
+        } else { // Restaurant does not exist in the database
+            callback('Restaurant does not exist', null);
+        }
+    }
+    });
+    }
+
     /**
      * Fetch a restaurant by its ID.
      */
@@ -98,8 +164,7 @@ class DBHelper {
             callback('Restaurant does not exist', null);
         }
     }
-    })
-        ;
+    });
     }
 
     /**
@@ -299,6 +364,7 @@ class DBHelper {
             // DBHelper.addToIDB('favorite-restaurants', data);
             // callback(null, restaurants);
         })
+
         .catch(error => {
         console.log(error);
         });

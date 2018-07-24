@@ -19,6 +19,15 @@ window.initMap = () =>
     DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
 }
 });
+
+    fetchReviewFromURL((error, review) => {
+        if (error) { // Got an error!
+            console.error(error);
+        } else{
+            fillReviewsHTML();
+        }
+    });
+
 }
 
 /**
@@ -47,6 +56,61 @@ fetchRestaurantFromURL = (callback) =>
         ;
     }
 }
+
+fetchReviewFromURL = (callback) =>
+{
+    if (self.review) { // restaurant already fetched!
+        callback(null, self.review)
+        return;
+    }
+    const id = getParameterByName('id');
+    if (!id) { // no id found in URL
+        error = 'No restaurant id in URL'
+        callback(error, null);
+    } else {
+        DBHelper.fetchReviewById(id, (error, review) => {
+            self.review = review;
+        if (!review) {
+            console.error(error);
+            return;
+        }
+        // fillReviewsHTML(self.review);
+        callback(null, review)
+    })
+        ;
+    }
+}
+
+
+/**
+ * Create all reviews HTML and add them to the webpage.
+ */
+fillReviewsHTML = (reviews = self.reviews) =>
+{
+    const container = document.getElementById('reviews-container');
+    const title = document.createElement('h3');
+    title.innerHTML = 'Reviews';
+    container.appendChild(title);
+
+    if (!reviews) {
+        const noReviews = document.createElement('p');
+        noReviews.innerHTML = 'No reviews yet!';
+        container.appendChild(noReviews);
+        return;
+    }
+    const ul = document.getElementById('reviews-list');
+    reviews.forEach(review => {
+        ul.appendChild(createReviewHTML(review));
+})
+    ;
+    container.appendChild(ul);
+}
+
+
+
+
+
+
 
 /**
  * Create restaurant HTML and add it to the webpage
@@ -176,29 +240,6 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) =>
     }
 }
 
-/**
- * Create all reviews HTML and add them to the webpage.
- */
-fillReviewsHTML = (reviews = self.restaurant.reviews) =>
-{
-    const container = document.getElementById('reviews-container');
-    const title = document.createElement('h3');
-    title.innerHTML = 'Reviews';
-    container.appendChild(title);
-
-    if (!reviews) {
-        const noReviews = document.createElement('p');
-        noReviews.innerHTML = 'No reviews yet!';
-        container.appendChild(noReviews);
-        return;
-    }
-    const ul = document.getElementById('reviews-list');
-    reviews.forEach(review => {
-        ul.appendChild(createReviewHTML(review));
-})
-    ;
-    container.appendChild(ul);
-}
 
 /**
  * Create review HTML and add it to the webpage.
