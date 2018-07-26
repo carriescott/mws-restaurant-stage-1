@@ -1,7 +1,7 @@
 const dbPromise = idb.open('restaurant-details', 1, upgradeDB => {
     upgradeDB.createObjectStore('restaurants');
-    upgradeDB.createObjectStore('favorite-restaurants');
-    upgradeDB.createObjectStore('restaurant-reviews');
+    upgradeDB.createObjectStore('favorite-restaurants', {keyPath: 'id'});
+    upgradeDB.createObjectStore('restaurant-reviews', {keyPath: 'id'});
 });
 
 /**
@@ -105,9 +105,15 @@ class DBHelper {
             .then(function (responseAsJson) {
                 const review = responseAsJson;
                 console.log('review', review);
+                var i;
+                for (i = 0; i < review.length; i++) {
+                    console.log('review id', review[i].id);
+                    DBHelper.addToIDB(review[i].id, review[i], 'restaurant-reviews');
+                }
                 callback(null, review);
                 //Add data to indexedBD
-                // DBHelper.addToIDB('restaurant', restaurants, 'restaurants');
+                //Add each review to the idb
+                // DBHelper.addToIDB('restaurant-reviews', restaurants, 'restaurants');
             })
             .catch(function (error) {
                 // var IDB = DBHelper.getFromIDB('restaurant');
@@ -129,6 +135,7 @@ class DBHelper {
      * Fetch a review by restaurant ID.
      */
     static fetchReviewById(id, callback) {
+        console.log('fetchReviewByID', id);
         // fetch all restaurants with proper error handling.
         DBHelper.fetchReview((error, reviews) => {
             if (error) {

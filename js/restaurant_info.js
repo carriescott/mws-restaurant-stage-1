@@ -23,11 +23,8 @@ window.initMap = () =>
     fetchReviewFromURL((error, review) => {
         if (error) { // Got an error!
             console.error(error);
-        } else{
-            fillReviewsHTML();
         }
     });
-
 }
 
 /**
@@ -40,6 +37,7 @@ fetchRestaurantFromURL = (callback) =>
         return;
     }
     const id = getParameterByName('id');
+    console.log('restaurant id', id);
     if (!id) { // no id found in URL
         error = 'No restaurant id in URL'
         callback(error, null);
@@ -62,19 +60,21 @@ fetchReviewFromURL = (callback) =>
     if (self.review) { // restaurant already fetched!
         callback(null, self.review)
         return;
+        console.log('self', self);
     }
     const id = getParameterByName('id');
+    console.log('review id', id);
     if (!id) { // no id found in URL
         error = 'No restaurant id in URL'
         callback(error, null);
     } else {
         DBHelper.fetchReviewById(id, (error, review) => {
-            self.review = review;
+            console.log('fetchReviewFromURL', review);
         if (!review) {
             console.error(error);
             return;
         }
-        // fillReviewsHTML(self.review);
+        fillReviewsHTML(review);
         callback(null, review)
     })
         ;
@@ -85,7 +85,28 @@ fetchReviewFromURL = (callback) =>
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-fillReviewsHTML = (reviews = self.reviews) =>
+// fillReviewsHTML = (reviews = self.reviews) =>
+// {
+//     const container = document.getElementById('reviews-container');
+//     const title = document.createElement('h3');
+//     title.innerHTML = 'Reviews';
+//     container.appendChild(title);
+//
+//     if (!reviews) {
+//         const noReviews = document.createElement('p');
+//         noReviews.innerHTML = 'No reviews yet!';
+//         container.appendChild(noReviews);
+//         return;
+//     }
+//     const ul = document.getElementById('reviews-list');
+//     reviews.forEach(review => {
+//         ul.appendChild(createReviewHTML(review));
+// })
+//     ;
+//     container.appendChild(ul);
+// }
+
+fillReviewsHTML = (reviews) =>
 {
     const container = document.getElementById('reviews-container');
     const title = document.createElement('h3');
@@ -105,6 +126,9 @@ fillReviewsHTML = (reviews = self.reviews) =>
     ;
     container.appendChild(ul);
 }
+
+
+
 
 
 
