@@ -1,7 +1,7 @@
 const dbPromise = idb.open('restaurant-details', 1, upgradeDB => {
     upgradeDB.createObjectStore('restaurants');
-    upgradeDB.createObjectStore('favorite-restaurants', {keyPath: 'id'});
-    upgradeDB.createObjectStore('restaurant-reviews', {keyPath: 'id'});
+    upgradeDB.createObjectStore('favorite-restaurants');
+    upgradeDB.createObjectStore('restaurant-reviews');
 });
 
 /**
@@ -52,6 +52,11 @@ class DBHelper {
         return `http://localhost:${port}/reviews`;
     }
 
+    static get DATABASE_URL_Favorites() {
+        const port = 1337; // Change this to your server port
+        return `http://localhost:${port}/restaurants/?is_favorite=true`;
+            }
+
     /**
      * Fetch all restaurants from the database and store it in an idb.
      */
@@ -86,8 +91,6 @@ class DBHelper {
             });
     }
 
-
-
     /**
      * Fetch all reviews from the database and store it in an idb.
      */
@@ -111,9 +114,6 @@ class DBHelper {
                     DBHelper.addToIDB(review[i].id, review[i], 'restaurant-reviews');
                 }
                 callback(null, review);
-                //Add data to indexedBD
-                //Add each review to the idb
-                // DBHelper.addToIDB('restaurant-reviews', restaurants, 'restaurants');
             })
             .catch(function (error) {
                 // var IDB = DBHelper.getFromIDB('restaurant');
@@ -129,6 +129,46 @@ class DBHelper {
             });
 
     }
+
+    /**
+     * Fetch favorite restuarants from the database and store it in an idb.
+     */
+
+    static fetchFavorites(callback) {
+
+        fetch(DBHelper.DATABASE_URL_Favorites)
+
+            .then(function (response) {
+                console.log('response', response);
+                // Read the response as json.
+                return response.json();
+            })
+            .then(function (responseAsJson) {
+                const favorites = responseAsJson;
+                console.log('favorites', favorites);
+                var i;
+                for (i = 0; i < favorites.length; i++) {
+                    console.log('favorites, id', favorites[i].id);
+                    DBHelper.addToIDB(favorites[i].id, favorites[i], 'favorite-restaurants');
+                }
+                callback(null, favorites);
+            })
+            .catch(function (error) {
+                // var IDB = DBHelper.getFromIDB('restaurant');
+                console.log('Looks like there was a problem: \n', error);
+                // IDB.then(function(result) {
+                //     const myRestaurant = result;
+                //     callback(null, myRestaurant);
+                //     console.log(myRestaurant);
+                // }, function(err) {
+                //     console.log(err);
+                // });
+
+            });
+
+    }
+
+
 
 
     /**
@@ -152,6 +192,31 @@ class DBHelper {
     }
     });
     }
+
+
+    /**
+     * Fetch a favorites by restaurant ID.
+     */
+    static fetchFavoritesById(id, callback) {
+        console.log('fetchReviewByID', id);
+        // fetch all restaurants with proper error handling.
+        DBHelper.fetchFavorites((error, favoritess) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                const favorites = favoritess.find(r => r.restaurant_id == id
+    )
+        ;
+        if (favorites) { // Got the restaurant
+            callback(null, favorites);
+        } else { // Restaurant does not exist in the database
+            callback('Restaurant does not exist', null);
+        }
+    }
+    });
+    }
+
+
 
     /**
      * Fetch a restaurant by its ID.

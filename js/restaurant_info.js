@@ -25,6 +25,13 @@ window.initMap = () =>
             console.error(error);
         }
     });
+
+    fetchFavoritesFromURL((error, favorites) => {
+        if (error) { // Got an error!
+            console.error(error);
+        }
+    });
+
 }
 
 /**
@@ -74,8 +81,35 @@ fetchReviewFromURL = (callback) =>
             console.error(error);
             return;
         }
-        fillReviewsHTML(review);
+        // fillReviewsHTML(review);
         callback(null, review)
+    })
+        ;
+    }
+}
+
+
+fetchFavoritesFromURL = (callback) =>
+{
+    if (self.favorites) { // restaurant already fetched!
+        callback(null, self.favorites)
+        return;
+        console.log('self', self);
+    }
+    const id = getParameterByName('id');
+    console.log('favorites id', id);
+    if (!id) { // no id found in URL
+        error = 'No restaurant id in URL'
+        callback(error, null);
+    } else {
+        DBHelper.fetchFavoritesById(id, (error, favorites) => {
+            console.log('fetchFavoritesFromURL', favorites);
+        if (!favorites) {
+            console.error(error);
+            return;
+        }
+        // fillReviewsHTML(favorites);
+        callback(null, favorites)
     })
         ;
     }
