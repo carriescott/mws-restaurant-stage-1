@@ -115,7 +115,6 @@ fetchFavoritesFromURL = (callback) =>
     }
 }
 
-
 /**
  * Create all reviews HTML and add them to the webpage.
  */
@@ -229,12 +228,20 @@ fillFavouriteRestaurantHTML = (is_favorite = self.restaurant.is_favorite, id = s
 
 }
 
+
+// function toggleFavorite2(id, status){
+//
+//     DBHelper.setFavoriteStatus (id, status)
+//     .then(function(response) {
+//         const data = response;
+// }
+
 function toggleFavorite(id, status){
 
     DBHelper.setFavoriteStatus (id, status)
         .then(function(response) {
             const data = response;
-            console.log('data', data);
+            console.log('toggle favorite data', data);
             console.log('is favorite', data.is_favorite);
             fillFavouriteRestaurantHTML (data.is_favorite, data.id);
 

@@ -15,12 +15,21 @@ class DBHelper {
      * Change this to restaurants.json file location on your server.
      */
 
-    static getFromIDB(key){
+    static getFromIDB(key, objectStore){
         return dbPromise.then(db => {
-            return db.transaction('restaurants')
-                .objectStore('restaurants').get(key);
+            return db.transaction(objectStore)
+                .objectStore(objectStore).get(key);
         });
     }
+
+
+    static getAllFromIDB (objectStore) {
+        return dbPromise.then(db => {
+            return db.transaction(objectStore)
+                .objectStore(objectStore).getAll();
+        });
+    }
+
 
     static addToIDB(key, val, objectStore) {
         return dbPromise.then(db => {
@@ -78,7 +87,7 @@ class DBHelper {
                 DBHelper.addToIDB('restaurant', restaurants, 'restaurants');
             })
             .catch(function(error) {
-                var IDB = DBHelper.getFromIDB('restaurant');
+                var IDB = DBHelper.getFromIDB('restaurant', 'restaurants');
                 console.log('Looks like there was a problem: \n', error);
                 IDB.then(function(result) {
                     const myRestaurant = result;
@@ -99,7 +108,6 @@ class DBHelper {
     static fetchReview(callback) {
 
         fetch(DBHelper.DATABASE_URL_Review)
-
             .then(function (response) {
                 console.log('response', response);
                 // Read the response as json.
@@ -154,15 +162,16 @@ class DBHelper {
                 callback(null, favorites);
             })
             .catch(function (error) {
-                // var IDB = DBHelper.getFromIDB('restaurant');
+                var IDB = DBHelper.getAllFromIDB('favorite-restaurants');
                 console.log('Looks like there was a problem: \n', error);
-                // IDB.then(function(result) {
-                //     const myRestaurant = result;
-                //     callback(null, myRestaurant);
-                //     console.log(myRestaurant);
-                // }, function(err) {
-                //     console.log(err);
-                // });
+                IDB.then(function(result) {
+                    const favoriteRestaurants = result;
+                    console.log('favoriteRestaurants', favoriteRestaurants);
+                    callback(null, favoriteRestaurants);
+
+                }, function(err) {
+                    console.log(err);
+                });
 
             });
 
@@ -409,7 +418,7 @@ class DBHelper {
             "comments": form.comments.value,
          };
 
-        DBHelper.addToIDB(form.id.value, formObject, 'restaurant-reviews');
+        // DBHelper.addToIDB(form.id.value, formObject, 'restaurant-reviews');
         DBHelper.postReviewToDatabase(formObject);
 
      }
@@ -432,6 +441,7 @@ class DBHelper {
         .then(function(responseAsJson) {
             const data = responseAsJson;
             console.log('data', data);
+            DBHelper.addToIDB(data.id, data, 'restaurant-reviews');
             return data;
             // DBHelper.addToIDB('favorite-restaurants', data);
             // callback(null, restaurants);
