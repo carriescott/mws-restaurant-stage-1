@@ -174,7 +174,6 @@ class DBHelper {
                 });
 
             });
-
     }
 
 
@@ -465,18 +464,41 @@ class DBHelper {
                     .then(function(response) {
                             console.log('response', response);
                             // Read the response as json.
+                            // clearInterval(DBHelper.setFavoriteStatus(id, status));
                             return response.json();
                         })
                     .then(function(responseAsJson) {
                                 const data = responseAsJson;
-                                console.log('data', data);
-                                return data;
-                                // DBHelper.addToIDB('favorite-restaurants', data);
-                        // callback(null, restaurants);
+                                console.log('setFavoriteStatusData', data);
+                                // return data;
+                        // callback(null, data);
                             })
-                    .catch(error => {
-                                console.log(error);
+                    .catch(function (error) {
+                        console.log('Looks like there was a problem: \n', error);
+                            // DBHelper.setInterval(id, status);
+                        // setInterval(DBHelper.setFavoriteStatus, 30000, id, status);
+                        setTimeout(DBHelper.setFavoriteStatus, 30000, id, status);
+                        console.log('setTimeout is working');
                     });
+
     }
+
+
+
+
+
+    // static syncToServer(id, status) {
+    //
+    //
+    //
+    // }
+
+
+
+
 }
+
+
+
+
 
