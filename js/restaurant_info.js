@@ -50,24 +50,6 @@ fetchRestaurantFromURL = (callback) =>
         callback(error, null);
     } else {
 
-        DBHelper.fetchReview(id, (error, review) => {
-            console.log('fetchReview', review);
-        self.review = review;
-        if (!review) {
-            console.error(error);
-            return;
-        } else{
-            // var i;
-            // for (i = 0; i < review.length; i++) {
-            //     console.log('review', review[i]);
-            //     // fillReviewsHTML(review[i]);
-            // }
-            fillReviewsHTML(review);
-        }
-
-        // fillReviewsHTML();
-        callback(null, review)
-    });
 
         DBHelper.fetchRestaurantById(id, (error, restaurant) => {
             console.log('fetchRestaurantFromURL', restaurant);
@@ -79,9 +61,6 @@ fetchRestaurantFromURL = (callback) =>
         fillRestaurantHTML();
         callback(null, restaurant)
         });
-
-
-
 
     }
 }
@@ -132,7 +111,6 @@ fetchFavoritesFromURL = (callback) =>
             console.error(error);
             return;
         }
-        // fillReviewsHTML(favorites);
         callback(null, favorites)
     })
         ;
@@ -246,10 +224,20 @@ fillRestaurantHTML = (restaurant = self.restaurant) =>
     if (restaurant.operating_hours) {
         fillRestaurantHoursHTML();
     }
-    // create review form
     createReviewFormHTML();
-    // fill reviews
-    // fillReviewsHTML();
+
+        DBHelper.fetchReview(id, (error, review) => {
+            console.log('fetchReview', review);
+        self.review = review;
+        if (!review) {
+            console.error(error);
+            return;
+        } else{
+            fillReviewsHTML(review);
+        }
+        callback(null, review)
+    });
+
 }
 
 

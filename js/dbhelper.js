@@ -127,12 +127,23 @@ class DBHelper {
                 callback(null, review);
             })
             .catch(function (error) {
-                // var IDB = DBHelper.getFromIDB('restaurant');
-                console.log('Looks like there was a problem: \n', error);
+                // var IDB = DBHelper.getAllFromIDB('restaurant-reviews');
+                // console.log('Looks like there was a problem: \n', error);
                 // IDB.then(function(result) {
-                //     const myRestaurant = result;
-                //     callback(null, myRestaurant);
-                //     console.log(myRestaurant);
+                //     const myReviews = result;
+                //     console.log('myReviews', myReviews);
+                //     var i;
+                //     const test = [];
+                //     for (i = 0; i < myReviews.length; i++) {
+                //         console.log('review id', myReviews[i].id);
+                //         console.log('review restaurant id', myReviews[i].restaurant_id);
+                //         if (myReviews[i].restaurant_id == id) {
+                //             console.log('myReviewYippee', myReviews[i]);
+                //             test.push(myReviews[i]);
+                //         }
+                //             console.log('test', test);
+                //     }
+                //     callback(null, test);
                 // }, function(err) {
                 //     console.log(err);
                 // });
