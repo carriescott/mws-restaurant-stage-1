@@ -105,9 +105,12 @@ class DBHelper {
      */
 
 
-    static fetchReview(callback) {
+    static fetchReview(id, callback) {
 
-        fetch(DBHelper.DATABASE_URL_Review)
+        console.log('yippee id', id);
+
+        fetch(`http://localhost:1337/reviews/?restaurant_id=${id}`)
+        // fetch(DBHelper.DATABASE_URL_Review)
             .then(function (response) {
                 console.log('response', response);
                 // Read the response as json.

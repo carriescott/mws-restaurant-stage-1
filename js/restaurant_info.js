@@ -20,11 +20,11 @@ window.initMap = () =>
 }
 });
 
-    fetchReviewFromURL((error, review) => {
-        if (error) { // Got an error!
-            console.error(error);
-        }
-    });
+    // fetchReviewFromURL((error, review) => {
+    //     if (error) { // Got an error!
+    //         console.error(error);
+    //     }
+    // });
 
     fetchFavoritesFromURL((error, favorites) => {
         if (error) { // Got an error!
@@ -49,7 +49,28 @@ fetchRestaurantFromURL = (callback) =>
         error = 'No restaurant id in URL'
         callback(error, null);
     } else {
+
+        DBHelper.fetchReview(id, (error, review) => {
+            console.log('fetchReview', review);
+        self.review = review;
+        if (!review) {
+            console.error(error);
+            return;
+        } else{
+            // var i;
+            // for (i = 0; i < review.length; i++) {
+            //     console.log('review', review[i]);
+            //     // fillReviewsHTML(review[i]);
+            // }
+            fillReviewsHTML(review);
+        }
+
+        // fillReviewsHTML();
+        callback(null, review)
+    });
+
         DBHelper.fetchRestaurantById(id, (error, restaurant) => {
+            console.log('fetchRestaurantFromURL', restaurant);
             self.restaurant = restaurant;
         if (!restaurant) {
             console.error(error);
@@ -57,36 +78,39 @@ fetchRestaurantFromURL = (callback) =>
         }
         fillRestaurantHTML();
         callback(null, restaurant)
-    })
-        ;
+        });
+
+
+
+
     }
 }
 
-fetchReviewFromURL = (callback) =>
-{
-    if (self.review) { // restaurant already fetched!
-        callback(null, self.review)
-        return;
-        console.log('self', self);
-    }
-    const id = getParameterByName('id');
-    console.log('review id', id);
-    if (!id) { // no id found in URL
-        error = 'No restaurant id in URL'
-        callback(error, null);
-    } else {
-        DBHelper.fetchReviewById(id, (error, review) => {
-            console.log('fetchReviewFromURL', review);
-        if (!review) {
-            console.error(error);
-            return;
-        }
-        // fillReviewsHTML(review);
-        callback(null, review)
-    })
-        ;
-    }
-}
+// fetchReviewFromURL = (callback) =>
+// {
+//     if (self.review) { // restaurant already fetched!
+//         callback(null, self.review)
+//         return;
+//         console.log('self', self);
+//     }
+//     const id = getParameterByName('id');
+//     console.log('review id', id);
+//     if (!id) { // no id found in URL
+//         error = 'No restaurant id in URL'
+//         callback(error, null);
+//     } else {
+//         DBHelper.fetchReviewById(id, (error, review) => {
+//             console.log('fetchReviewFromURL', review);
+//         if (!review) {
+//             console.error(error);
+//             return;
+//         }
+//         // fillReviewsHTML(review);
+//         callback(null, review)
+//     })
+//         ;
+//     }
+// }
 
 
 fetchFavoritesFromURL = (callback) =>
@@ -141,6 +165,7 @@ fetchFavoritesFromURL = (callback) =>
 
 fillReviewsHTML = (reviews) =>
 {
+    console.log('fillReviewsHTML WORKED!', reviews);
     const container = document.getElementById('reviews-container');
     const title = document.createElement('h3');
     title.innerHTML = 'Reviews';
@@ -159,6 +184,31 @@ fillReviewsHTML = (reviews) =>
     ;
     container.appendChild(ul);
 }
+
+// fillReviewsHTML = (review) =>
+// {
+//     console.log('fillReviewsHTML WORKED!', review);
+//     const container = document.getElementById('reviews-container');
+//     const title = document.createElement('h3');
+//     title.innerHTML = 'Reviews';
+//     container.appendChild(title);
+//
+//     if (!review) {
+//         const noReviews = document.createElement('p');
+//         noReviews.innerHTML = 'No reviews yet!';
+//         container.appendChild(noReviews);
+//         return;
+//     }
+//     const ul = document.getElementById('reviews-list');
+//     ul.appendChild(createReviewHTML(review));
+//     ;
+//     container.appendChild(ul);
+// }
+
+
+
+
+
 
 /**
  * Create restaurant HTML and add it to the webpage
@@ -199,7 +249,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) =>
     // create review form
     createReviewFormHTML();
     // fill reviews
-    fillReviewsHTML();
+    // fillReviewsHTML();
 }
 
 
