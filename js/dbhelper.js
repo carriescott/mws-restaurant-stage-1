@@ -1,7 +1,7 @@
 const dbPromise = idb.open('restaurant-details', 1, upgradeDB => {
     upgradeDB.createObjectStore('restaurants');
     upgradeDB.createObjectStore('favorite-restaurants');
-    upgradeDB.createObjectStore('restaurant-reviews');
+    upgradeDB.createObjectStore('restaurant-reviews', {autoIncrement:true});
 });
 
 /**
@@ -39,7 +39,14 @@ class DBHelper {
         return tx.complete;
         });
     }
-
+    static addToReviewsIDB(val) {
+        return dbPromise.then(db => {
+            const tx = db.transaction('restaurant-reviews', 'readwrite');
+        tx.objectStore('restaurant-reviews').put(val);
+        console.log('finished adding data');
+        return tx.complete;
+    });
+    }
 
     static deleteFromIDB(key, objectStore) {
         return dbPromise.then(db => {
@@ -122,7 +129,8 @@ class DBHelper {
                 var i;
                 for (i = 0; i < review.length; i++) {
                     console.log('review id', review[i].id);
-                    DBHelper.addToIDB(review[i].id, review[i], 'restaurant-reviews');
+                    // DBHelper.addToIDB(review[i].id, review[i], 'restaurant-reviews');
+                    DBHelper.addToReviewsIDB(review[i]);
                 }
                 callback(null, review);
             })
@@ -189,9 +197,6 @@ class DBHelper {
 
             });
     }
-
-
-
 
     /**
      * Fetch a review by restaurant ID.
@@ -433,6 +438,7 @@ class DBHelper {
 
         // DBHelper.addToIDB(form.id.value, formObject, 'restaurant-reviews');
         DBHelper.postReviewToDatabase(formObject);
+        DBHelper.addToIDB( data, 'restaurant-reviews');
 
      }
 
