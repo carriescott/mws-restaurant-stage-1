@@ -235,7 +235,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) =>
         } else{
             fillReviewsHTML(review);
         }
-        callback(null, review)
+        // callback(null, review)
     });
 
 }
