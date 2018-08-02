@@ -4,6 +4,7 @@ var favorite_btn = document.createElement('button');
 /**
  * Initialize Google map, called from HTML.
  */
+
 window.initMap = () =>
 {
     fetchRestaurantFromURL((error, restaurant) => {

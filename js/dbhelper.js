@@ -437,8 +437,18 @@ class DBHelper {
          };
 
         // DBHelper.addToIDB(form.id.value, formObject, 'restaurant-reviews');
-        DBHelper.postReviewToDatabase(formObject);
-        DBHelper.addToIDB( data, 'restaurant-reviews');
+        // DBHelper.postReviewToDatabase(formObject);
+        var IDB = DBHelper.addToReviewsIDB(formObject);
+         IDB.then(function(result) {
+             const restaurantReview = result;
+             console.log('restaurantReview', restaurantReview);
+             // callback(null, restaurantReview);
+         }, function(err) {
+             console.log(err);
+         });
+
+         // document.location.reload();
+         DBHelper.postReviewToDatabase(formObject);
 
      }
 
@@ -460,15 +470,23 @@ class DBHelper {
         .then(function(responseAsJson) {
             const data = responseAsJson;
             console.log('data', data);
-            DBHelper.addToIDB(data.id, data, 'restaurant-reviews');
+            // DBHelper.addToIDB(data.id, data, 'restaurant-reviews');
+            // DBHelper.addToReviewsIDB(data);
             return data;
             // DBHelper.addToIDB('favorite-restaurants', data);
-            // callback(null, restaurants);
+            // callback(null, data);
         })
-
-        .catch(error => {
-        console.log(error);
+        .catch(function (error) {
+            console.log('Looks like there was a problem: \n', error);
+            // DBHelper.setInterval(id, status);
+            // setInterval(DBHelper.setFavoriteStatus, 30000, id, status);
+            setTimeout(DBHelper.postReviewToDatabase, 30000, formObject);
+            console.log('setTimeout is working');
         });
+        // .catch(error => {
+        // //    add timeout function
+        // console.log(error);
+        // });
     }
 
 
@@ -502,19 +520,6 @@ class DBHelper {
                     });
 
     }
-
-
-
-
-
-    // static syncToServer(id, status) {
-    //
-    //
-    //
-    // }
-
-
-
 
 }
 
