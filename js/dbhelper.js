@@ -422,8 +422,8 @@ class DBHelper {
     }
 
 
-     static saveOffline(event, form) {
-        event.preventDefault();
+     static saveOffline(form) {
+        // event.preventDefault();
 
          console.log('save offline', form);
          console.log(form.name.value);
@@ -448,6 +448,8 @@ class DBHelper {
          });
 
          // document.location.reload();
+         // window.initMap();
+         // fillRestaurantHTML();
          DBHelper.postReviewToDatabase(formObject);
 
      }

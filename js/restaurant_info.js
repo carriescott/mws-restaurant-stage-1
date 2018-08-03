@@ -121,26 +121,6 @@ fetchFavoritesFromURL = (callback) =>
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-// fillReviewsHTML = (reviews = self.reviews) =>
-// {
-//     const container = document.getElementById('reviews-container');
-//     const title = document.createElement('h3');
-//     title.innerHTML = 'Reviews';
-//     container.appendChild(title);
-//
-//     if (!reviews) {
-//         const noReviews = document.createElement('p');
-//         noReviews.innerHTML = 'No reviews yet!';
-//         container.appendChild(noReviews);
-//         return;
-//     }
-//     const ul = document.getElementById('reviews-list');
-//     reviews.forEach(review => {
-//         ul.appendChild(createReviewHTML(review));
-// })
-//     ;
-//     container.appendChild(ul);
-// }
 
 fillReviewsHTML = (reviews) =>
 {
@@ -163,30 +143,6 @@ fillReviewsHTML = (reviews) =>
     ;
     container.appendChild(ul);
 }
-
-// fillReviewsHTML = (review) =>
-// {
-//     console.log('fillReviewsHTML WORKED!', review);
-//     const container = document.getElementById('reviews-container');
-//     const title = document.createElement('h3');
-//     title.innerHTML = 'Reviews';
-//     container.appendChild(title);
-//
-//     if (!review) {
-//         const noReviews = document.createElement('p');
-//         noReviews.innerHTML = 'No reviews yet!';
-//         container.appendChild(noReviews);
-//         return;
-//     }
-//     const ul = document.getElementById('reviews-list');
-//     ul.appendChild(createReviewHTML(review));
-//     ;
-//     container.appendChild(ul);
-// }
-
-
-
-
 
 
 /**
@@ -368,9 +324,9 @@ createReviewFormHTML = (id = self.restaurant.id) =>
     const form = document.getElementById('review-form');
     const reviewForm = document.createElement('form');
 
-    // reviewForm.setAttribute("action", "http://localhost:1337/reviews/");
-    // reviewForm.setAttribute("method", "post");
-    reviewForm.setAttribute('onSubmit', 'DBHelper.saveOffline(event,this)');
+
+    // reviewForm.setAttribute('onSubmit', 'DBHelper.saveOffline(event,this)');
+    reviewForm.setAttribute('onSubmit', 'fillOfflineReviewsHTML(event, this)');
     // reviewForm.setAttribute('onSubmit', 'DBHelper.postReviewToDatabase(event,this)');
     // reviewForm.setAttribute('onSubmit', 'postReviewToDatabase(event,this)');
     form.appendChild(reviewForm);
@@ -460,3 +416,86 @@ getParameterByName = (name, url) =>
         return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+
+function createOfflineReviewHTML (form)
+{
+
+    console.log('form', form);
+    // const li = document.createElement('li');
+    // li.tabIndex = 0;
+    // const name = document.createElement('p');
+    // name.innerHTML = review.name;
+    // name.id = 'reviewer';
+    // li.appendChild(name);
+    //
+    // const date = document.createElement('p');
+    // date.innerHTML = review.date;
+    // li.appendChild(date);
+    //
+    // const rating = document.createElement('p');
+    // rating.innerHTML = `Rating: ${review.rating}`;
+    // li.appendChild(rating);
+    //
+    // const comments = document.createElement('p');
+    // comments.innerHTML = review.comments;
+    // li.appendChild(comments);
+    //
+    // return li;
+}
+
+
+function fillOfflineReviewsHTML(event, form)
+{
+    event.preventDefault();
+    DBHelper.saveOffline(form);
+    console.log('fillOfflineReviewsHTML WORKED!', form);
+    const container = document.getElementById('offline-reviews-container');
+
+    const ul = document.getElementById('offline-reviews-list');
+
+
+    const li = document.createElement('li');
+    li.tabIndex = 0;
+    const name = document.createElement('p');
+    name.innerHTML = form.name.value;
+    name.id = 'reviewer';
+    li.appendChild(name);
+
+    // const date = document.createElement('p');
+    // date.innerHTML = form.date;
+    // li.appendChild(date);
+
+    // const rating = document.createElement('p');
+    // rating.innerHTML = `Rating: ${form.rating.value}`;
+    // li.appendChild(rating);
+
+    const comments = document.createElement('p');
+    comments.innerHTML = form.comments.value;
+    li.appendChild(comments);
+
+    // return li;
+
+    ul.appendChild(li);
+
+    container.appendChild(ul);
+
+    // const title = document.createElement('h3');
+    // title.innerHTML = 'Reviews';
+    // container.appendChild(title);
+
+    // if (!reviews) {
+    //     const noReviews = document.createElement('p');
+    //     noReviews.innerHTML = 'No reviews yet!';
+    //     container.appendChild(noReviews);
+    //     return;
+    // }
+
+    ul.appendChild(createOfflineReviewHTML(form));
+    container.appendChild(ul);
+}
+
+
+
+
+
