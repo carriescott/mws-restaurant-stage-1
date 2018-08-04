@@ -298,8 +298,10 @@ createReviewHTML = (review) =>
     name.id = 'reviewer';
     li.appendChild(name);
 
+    var ts = new Date(review.createdAt);
+
     const date = document.createElement('p');
-    date.innerHTML = review.date;
+    date.innerHTML = ts.toDateString();
     li.appendChild(date);
 
     const rating = document.createElement('p');
@@ -418,39 +420,14 @@ getParameterByName = (name, url) =>
 }
 
 
-function createOfflineReviewHTML (form)
-{
-
-    console.log('form', form);
-    // const li = document.createElement('li');
-    // li.tabIndex = 0;
-    // const name = document.createElement('p');
-    // name.innerHTML = review.name;
-    // name.id = 'reviewer';
-    // li.appendChild(name);
-    //
-    // const date = document.createElement('p');
-    // date.innerHTML = review.date;
-    // li.appendChild(date);
-    //
-    // const rating = document.createElement('p');
-    // rating.innerHTML = `Rating: ${review.rating}`;
-    // li.appendChild(rating);
-    //
-    // const comments = document.createElement('p');
-    // comments.innerHTML = review.comments;
-    // li.appendChild(comments);
-    //
-    // return li;
-}
-
-
 function fillOfflineReviewsHTML(event, form)
 {
     event.preventDefault();
-    // createReviewFormHTML();
+    const timestamp = new Date().getTime();
+    console.log('timestamp', timestamp);
 
-    // document.getElementById('reviewer-name').reset();
+    // var n = event.timeStamp;
+    // console.log('timestamp', n);
 
     DBHelper.saveOffline(form);
     console.log('fillOfflineReviewsHTML WORKED!', form);
@@ -466,6 +443,13 @@ function fillOfflineReviewsHTML(event, form)
     name.id = 'reviewer';
     li.appendChild(name);
 
+
+    const ts = new Date(timestamp);
+
+    const date = document.createElement('p');
+    date.innerHTML = ts.toDateString();
+    li.appendChild(date);
+
     // const date = document.createElement('p');
     // date.innerHTML = form.date;
     // li.appendChild(date);
@@ -478,26 +462,8 @@ function fillOfflineReviewsHTML(event, form)
     comments.innerHTML = form.comments.value;
     li.appendChild(comments);
 
-    // return li;
-
     ul.appendChild(li);
-
     container.appendChild(ul);
-
-    // const title = document.createElement('h3');
-    // title.innerHTML = 'Reviews';
-    // container.appendChild(title);
-
-    // if (!reviews) {
-    //     const noReviews = document.createElement('p');
-    //     noReviews.innerHTML = 'No reviews yet!';
-    //     container.appendChild(noReviews);
-    //     return;
-    // }
-
-    // ul.appendChild(createOfflineReviewHTML(form));
-    // container.appendChild(ul);
-
     form.reset();
 }
 
