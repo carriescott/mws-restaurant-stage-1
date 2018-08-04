@@ -348,30 +348,37 @@ createReviewFormHTML = (id = self.restaurant.id) =>
     reviewForm.appendChild(restaurantID);
 
 
-    // const ratingSelect = document.createElement("select");
-    // ratingSelect.setAttribute("id", "ratingSelect");
-    // document.body.appendChild(ratingSelect);
-    //
-    // const selectOption = document.createElement("option");
-    // selectOption.setAttribute("value", "1");
-    // const selectText = document.createTextNode("1");
-    // selectOption.appendChild(selectText);
-    // document.getElementById("ratingSelect").appendChild(selectOption);
-    //
-    // reviewForm.appendChild(ratingSelect);
+    const rating = document.createElement('select');
+    rating.setAttribute('id', 'restaurant-rating');
+    rating.setAttribute('name', 'restaurantRating');
 
-    // var x = document.createElement("SELECT");
-    // x.setAttribute("id", "mySelect");
-    // document.body.appendChild(x);
-    //
-    // var z = document.createElement("option");
-    // z.setAttribute("value", "volvocar");
-    // var t = document.createTextNode("Volvo");
-    // z.appendChild(t);
-    // document.getElementById("mySelect").appendChild(z);
-    //
-    // reviewForm.appendChild(x);
+    const one = document.createElement('option');
+    one.innerHTML = '1';
+    one.setAttribute('selected', 'selected');
+    one.setAttribute('value', '1');
+    rating.appendChild(one);
 
+    const two = document.createElement('option');
+    two.innerHTML = '2';
+    two.setAttribute('value', '2');
+    rating.appendChild(two);
+
+    const three = document.createElement('option');
+    three.innerHTML = '3';
+    three.setAttribute('value', '3');
+    rating.appendChild(three);
+
+    const four = document.createElement('option');
+    four.innerHTML = '4';
+    four.setAttribute('value', '4');
+    rating.appendChild(four);
+
+    const five = document.createElement('option');
+    five.innerHTML = '5';
+    five.setAttribute('value', '5');
+    rating.appendChild(five);
+
+    reviewForm.appendChild(rating);
 
     const name = document.createElement('input'); // Create Input Field for Name
     restaurantID.className = 'reviewer-name';
@@ -426,15 +433,13 @@ function fillOfflineReviewsHTML(event, form)
     const timestamp = new Date().getTime();
     console.log('timestamp', timestamp);
 
-    // var n = event.timeStamp;
-    // console.log('timestamp', n);
+    console.log('rating', form.restaurantRating.value);
 
     DBHelper.saveOffline(form);
     console.log('fillOfflineReviewsHTML WORKED!', form);
     const container = document.getElementById('offline-reviews-container');
 
     const ul = document.getElementById('offline-reviews-list');
-
 
     const li = document.createElement('li');
     li.tabIndex = 0;
@@ -443,19 +448,14 @@ function fillOfflineReviewsHTML(event, form)
     name.id = 'reviewer';
     li.appendChild(name);
 
-
     const ts = new Date(timestamp);
 
     const date = document.createElement('p');
     date.innerHTML = ts.toDateString();
     li.appendChild(date);
 
-    // const date = document.createElement('p');
-    // date.innerHTML = form.date;
-    // li.appendChild(date);
-
     const rating = document.createElement('p');
-    rating.innerHTML = `Rating:`;
+    rating.innerHTML = `Rating: ${form.restaurantRating.value}`;
     li.appendChild(rating);
 
     const comments = document.createElement('p');

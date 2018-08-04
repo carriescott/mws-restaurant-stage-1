@@ -434,6 +434,7 @@ class DBHelper {
             "restaurant_id": form.id.value,
             "name": form.name.value,
             "comments": form.comments.value,
+            "rating": form.restaurantRating.value,
          };
 
         // DBHelper.addToIDB(form.id.value, formObject, 'restaurant-reviews');
