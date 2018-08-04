@@ -451,6 +451,7 @@ function fillOfflineReviewsHTML(event, form)
     // createReviewFormHTML();
 
     // document.getElementById('reviewer-name').reset();
+
     DBHelper.saveOffline(form);
     console.log('fillOfflineReviewsHTML WORKED!', form);
     const container = document.getElementById('offline-reviews-container');
@@ -494,8 +495,10 @@ function fillOfflineReviewsHTML(event, form)
     //     return;
     // }
 
-    ul.appendChild(createOfflineReviewHTML(form));
-    container.appendChild(ul);
+    // ul.appendChild(createOfflineReviewHTML(form));
+    // container.appendChild(ul);
+
+    form.reset();
 }
 
 
