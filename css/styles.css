@@ -411,6 +411,12 @@ nav h1 a {
     padding-right: 10px;
 }
 
+#offline-reviews-list {
+    margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 #reviews-list li {
     background-color: #fff;
     border-radius: 2px;
@@ -427,7 +433,29 @@ nav h1 a {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
 
+#offline-reviews-list li {
+    background-color: #fff;
+    border-radius: 2px;
+    display: block;
+    list-style-type: none;
+    margin: 0 0 30px;
+    overflow: hidden;
+    position: relative;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: calc(100% - 20px);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
 #reviews-list li p {
+    margin: 0 0 12px;
+    font-family: Roboto;
+    font-size: 10pt;
+}
+
+#offline-reviews-list li p {
     margin: 0 0 12px;
     font-family: Roboto;
     font-size: 10pt;

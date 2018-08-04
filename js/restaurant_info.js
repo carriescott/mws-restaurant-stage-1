@@ -372,6 +372,7 @@ createReviewFormHTML = (id = self.restaurant.id) =>
 
 
     const name = document.createElement('input'); // Create Input Field for Name
+    restaurantID.className = 'reviewer-name';
     name.setAttribute("type", "text");
     name.setAttribute("name", "name");
     reviewForm.appendChild(name);
@@ -385,7 +386,6 @@ createReviewFormHTML = (id = self.restaurant.id) =>
     submit.setAttribute("name", "dsubmit");
     submit.setAttribute("value", "Submit");
     reviewForm.appendChild(submit);
-
 
 }
 
@@ -448,6 +448,9 @@ function createOfflineReviewHTML (form)
 function fillOfflineReviewsHTML(event, form)
 {
     event.preventDefault();
+    // createReviewFormHTML();
+
+    // document.getElementById('reviewer-name').reset();
     DBHelper.saveOffline(form);
     console.log('fillOfflineReviewsHTML WORKED!', form);
     const container = document.getElementById('offline-reviews-container');
@@ -466,9 +469,9 @@ function fillOfflineReviewsHTML(event, form)
     // date.innerHTML = form.date;
     // li.appendChild(date);
 
-    // const rating = document.createElement('p');
-    // rating.innerHTML = `Rating: ${form.rating.value}`;
-    // li.appendChild(rating);
+    const rating = document.createElement('p');
+    rating.innerHTML = `Rating:`;
+    li.appendChild(rating);
 
     const comments = document.createElement('p');
     comments.innerHTML = form.comments.value;
