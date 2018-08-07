@@ -1,8 +1,8 @@
 
 const dbPromise = idb.open('restaurant-details', 1, upgradeDB => {
     upgradeDB.createObjectStore('restaurants');
-upgradeDB.createObjectStore('favorite-restaurants');
-upgradeDB.createObjectStore('restaurant-reviews', {autoIncrement:true});
+    upgradeDB.createObjectStore('favorite-restaurants');
+    upgradeDB.createObjectStore('restaurant-reviews', {autoIncrement:true});
 });
 
 /**
