@@ -266,6 +266,7 @@ createReviewFormHTML = (id = self.restaurant.id) =>
 
     const nameLabel = document.createElement('label'); // Create Label for Name Field
     nameLabel.innerHTML = "Name : "; // Set Field Labels
+    nameLabel.setAttribute("class", "formElements");
     reviewForm.appendChild(nameLabel);
 
     const name = document.createElement('input'); // Create Input Field for Name
@@ -273,6 +274,7 @@ createReviewFormHTML = (id = self.restaurant.id) =>
     name.setAttribute("type", "text");
     name.setAttribute("name", "name");
     name.setAttribute("aria-label", "name");
+    name.setAttribute("class", "formElements");
     reviewForm.appendChild(name);
 
     const restaurantID = document.createElement('input');
@@ -280,6 +282,13 @@ createReviewFormHTML = (id = self.restaurant.id) =>
     restaurantID.setAttribute("name", "id");
     restaurantID.setAttribute("value", `${id}`);
     reviewForm.appendChild(restaurantID);
+
+    const lineBreak1 = document.createElement('br');
+    reviewForm.appendChild(lineBreak1);
+
+    const ratingLabel = document.createElement('label'); // Create Label for Name Field
+    ratingLabel.innerHTML = "Rating"; // Set Field Labels
+    reviewForm.appendChild(ratingLabel);
 
     const rating = document.createElement('select');
     rating.setAttribute('aria-label', 'restaurant rating');
@@ -314,15 +323,34 @@ createReviewFormHTML = (id = self.restaurant.id) =>
 
     reviewForm.appendChild(rating);
 
+    const lineBreak2 = document.createElement('br');
+    reviewForm.appendChild(lineBreak2);
+
+    const lineBreak3 = document.createElement('br');
+    reviewForm.appendChild(lineBreak3);
+
+    const commentsLabel = document.createElement('label'); // Create Label for Name Field
+    commentsLabel.innerHTML = "Comments"; // Set Field Labels
+    commentsLabel.setAttribute("class", "formElements");
+    reviewForm.appendChild(commentsLabel);
+
+    const lineBreak4 = document.createElement('br');
+    reviewForm.appendChild(lineBreak4);
+
     const comments = document.createElement('textarea');
     comments.setAttribute("name", "comments");
     comments.setAttribute("aria-label", "comments");
+    comments.setAttribute("class", "formElements");
     reviewForm.appendChild(comments);
+
+    const lineBreak5 = document.createElement('br');
+    reviewForm.appendChild(lineBreak5);
 
     const submit = document.createElement('input'); // Append Submit Button
     submit.setAttribute("type", "submit");
     submit.setAttribute("name", "dsubmit");
     submit.setAttribute("value", "Submit");
+    submit.setAttribute("id", "submitButton");
     reviewForm.appendChild(submit);
 
 }

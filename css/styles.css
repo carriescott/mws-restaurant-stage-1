@@ -303,6 +303,21 @@ nav h1 a {
     border-radius: 2px;
 }
 
+#submitButton {
+    background-color: #4285f4;
+    color: #fff;
+    display: inline-block;
+    font-size: 10pt;
+    margin: 15px;
+    padding: 8px 30px 10px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    float: right;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+    border-radius: 2px;
+}
+
 
 /* ====================== Restaurant Details ====================== */
 .inside header {
@@ -480,6 +495,17 @@ nav h1 a {
     margin-right: 10px;
 }
 
+#review-form {
+    margin-top: 60px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 60px;
+}
+
+.formElements {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 /* ====================== Breadcrumb ====================== */
 
 #restaurant-info {
