@@ -21,12 +21,6 @@ window.initMap = () =>
 }
 });
 
-    // fetchReviewFromURL((error, review) => {
-    //     if (error) { // Got an error!
-    //         console.error(error);
-    //     }
-    // });
-
     fetchFavoritesFromURL((error, favorites) => {
         if (error) { // Got an error!
             console.error(error);
@@ -65,33 +59,6 @@ fetchRestaurantFromURL = (callback) =>
 
     }
 }
-
-// fetchReviewFromURL = (callback) =>
-// {
-//     if (self.review) { // restaurant already fetched!
-//         callback(null, self.review)
-//         return;
-//         console.log('self', self);
-//     }
-//     const id = getParameterByName('id');
-//     console.log('review id', id);
-//     if (!id) { // no id found in URL
-//         error = 'No restaurant id in URL'
-//         callback(error, null);
-//     } else {
-//         DBHelper.fetchReviewById(id, (error, review) => {
-//             console.log('fetchReviewFromURL', review);
-//         if (!review) {
-//             console.error(error);
-//             return;
-//         }
-//         // fillReviewsHTML(review);
-//         callback(null, review)
-//     })
-//         ;
-//     }
-// }
-
 
 fetchFavoritesFromURL = (callback) =>
 {
@@ -183,7 +150,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) =>
     }
     createReviewFormHTML();
 
-        DBHelper.fetchReview(id, (error, review) => {
+    DBHelper.fetchReview(id, (error, review) => {
             console.log('fetchReview', review);
         self.review = review;
         if (!review) {
@@ -227,42 +194,7 @@ function toggleFavorite(id, status, data){
     }
 
     DBHelper.setFavoriteStatus (id, status);
-        // .then(function(response) {
-        //     const data = response;
-        //     console.log('toggle favorite data', data);
-        //     console.log('is favorite', data.is_favorite);
-        // });
 }
-
-// function postReviewToDatabase(event, form){
-//
-//     event.preventDefault();
-//
-//     console.log('form', form);
-//
-//     const formObject = {
-//         "restaurant_id": form.id.value,
-//         "name": form.name.value,
-//         "comments": form.comments.value,
-//     };
-//
-//     DBHelper.addToIDB(formObject.id.value, formObject, 'restaurant-reviews');
-//
-//
-//     // DBHelper.postReviewToDatabase(formObject);
-//     //     .then(function(response) {
-//     //         const data = response;
-//     //         console.log('formObject', data);
-//     //         DBHelper.addToIDB(formObject.id.value, formObject, 'restaurant-reviews');
-//     //     // fillFavouriteRestaurantHTML (data.is_favorite, data.id);
-//     //
-//     //     });
-// }
-
-
-
-
-
 
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
@@ -295,7 +227,6 @@ createReviewHTML = (review) =>
     li.tabIndex = 0;
     const name = document.createElement('p');
     name.innerHTML = review.name;
-    name.id = 'reviewer';
     li.appendChild(name);
 
     var ts = new Date(review.createdAt);
@@ -326,11 +257,7 @@ createReviewFormHTML = (id = self.restaurant.id) =>
     const form = document.getElementById('review-form');
     const reviewForm = document.createElement('form');
 
-
-    // reviewForm.setAttribute('onSubmit', 'DBHelper.saveOffline(event,this)');
     reviewForm.setAttribute('onSubmit', 'fillOfflineReviewsHTML(event, this)');
-    // reviewForm.setAttribute('onSubmit', 'DBHelper.postReviewToDatabase(event,this)');
-    // reviewForm.setAttribute('onSubmit', 'postReviewToDatabase(event,this)');
     form.appendChild(reviewForm);
 
     const title = document.createElement('h2'); // Heading of Form
@@ -341,14 +268,21 @@ createReviewFormHTML = (id = self.restaurant.id) =>
     nameLabel.innerHTML = "Name : "; // Set Field Labels
     reviewForm.appendChild(nameLabel);
 
+    const name = document.createElement('input'); // Create Input Field for Name
+    name.className = 'reviewer-name';
+    name.setAttribute("type", "text");
+    name.setAttribute("name", "name");
+    name.setAttribute("aria-label", "name");
+    reviewForm.appendChild(name);
+
     const restaurantID = document.createElement('input');
     restaurantID.setAttribute("type", "hidden");
     restaurantID.setAttribute("name", "id");
     restaurantID.setAttribute("value", `${id}`);
     reviewForm.appendChild(restaurantID);
 
-
     const rating = document.createElement('select');
+    rating.setAttribute('aria-label', 'restaurant rating');
     rating.setAttribute('id', 'restaurant-rating');
     rating.setAttribute('name', 'restaurantRating');
 
@@ -380,14 +314,9 @@ createReviewFormHTML = (id = self.restaurant.id) =>
 
     reviewForm.appendChild(rating);
 
-    const name = document.createElement('input'); // Create Input Field for Name
-    restaurantID.className = 'reviewer-name';
-    name.setAttribute("type", "text");
-    name.setAttribute("name", "name");
-    reviewForm.appendChild(name);
-
     const comments = document.createElement('textarea');
     comments.setAttribute("name", "comments");
+    comments.setAttribute("aria-label", "comments");
     reviewForm.appendChild(comments);
 
     const submit = document.createElement('input'); // Append Submit Button

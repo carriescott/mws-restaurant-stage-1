@@ -2,15 +2,13 @@ let restaurants, neighborhoods, cuisines;
 var map;
 var markers = [];
 
-
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) =>{
     fetchNeighborhoods();
-fetchCuisines();
-})
-;
+    fetchCuisines();
+    });
 /**
  * Fetch all neighborhoods and set their HTML.
  */
@@ -86,6 +84,7 @@ window.initMap = () =>
         scrollwheel: false,
     });
     updateRestaurants();
+
 }
 /**
  * Update page and map for current restaurants.
@@ -166,16 +165,49 @@ createRestaurantHTML = (restaurant) =>
     li.setAttribute("role", "option");
 
     const image = document.createElement('img');
-    image.className = 'restaurant-img';
-    image.src = DBHelper.imageUrlForRestaurant(restaurant);
-    image.srcset = DBHelper.imageSrcsetForRestaurant(restaurant);
-    image.sizes = "22vw";
     image.title = restaurant.name;
     image.alt = 'Image of ' + restaurant.name + ' restaurant';
+    image.className = 'restaurant-img';
+    image.sizes = "22vw";
+
+    const config = {
+        root: null,
+        threshold: 0.01,
+        rootMargin: '50px 0px'
+    };
+
+    let observer;
+
+    if ('IntersectionObserver' in window) {
+        observer = new IntersectionObserver(onChanges, config);
+        observer.observe(image);
+    } else {
+        console.log('Intersection Observers are not supported in this browser');
+        loadImage(image);
+    }
+
+    function loadImage(image) {
+        image.src = DBHelper.imageUrlForRestaurant(restaurant);
+        image.dataset.src = DBHelper.imageUrlForRestaurant(restaurant);
+        image.dataset.srcset = DBHelper.imageSrcsetForRestaurant(restaurant);
+    }
+
+    function onChanges(changes, observer) {
+        changes.forEach(change=> {
+            if (change.intersectionRatio > 0)
+        {
+            loadImage(change.target);
+            observer.unobserve(change.target);
+        } else {
+                console.log('no-preloader');
+
+        }
+        });
+    }
+
     li.append(image);
 
     const div = document.createElement('div');
-    div.id = 'restaurant-name-container'
     li.append(div);
 
     const name = document.createElement('h2');
@@ -216,3 +248,20 @@ addMarkersToMap = (restaurants = self.restaurants) =>
 })
     ;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

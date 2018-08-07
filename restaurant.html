@@ -1,15 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <meta name="theme-color" content="#317EFB"/>
     <!-- Normalize.css for better cross-browser consistency -->
     <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css"/>
     <!-- Roboto Font-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700"/>
+    <link rel="import" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700" async defer>
     <!-- Main CSS file -->
     <link rel="stylesheet" href="css/styles.css" type="text/css">
     <!-- Responsive CSS file-->
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/responsive1600.css" media="(min-width: 1600px)">
+    <link rel="stylesheet" href="css/responsive1440.css" media="(max-width: 1599px) and (min-width: 1440px)">
+    <link rel="stylesheet" href="css/responsive1280.css" media="(max-width: 1439px) and (min-width: 1280px)">
+    <link rel="stylesheet" href="css/responsive1024.css" media="(max-width: 1279px) and (min-width: 1024px)">
+    <link rel="stylesheet" href="css/responsive960.css" media="(max-width: 1023px) and (min-width: 960px)">
+    <link rel="stylesheet" href="css/responsive840.css" media="(max-width: 959px) and (min-width: 840px)">
+    <link rel="stylesheet" href="css/responsive720.css" media="(max-width: 839px) and (min-width: 720px)">
+    <link rel="stylesheet" href="css/responsive600.css" media="(max-width: 719px) and (min-width: 600px)">
+    <link rel="stylesheet" href="css/responsive480.css" media="(max-width: 599px) and (min-width: 480px)">
+    <link rel="stylesheet" href="css/responsive0.css" media="(max-width: 600px) and (min-width: 0) and (orientation: landscape)">
+
+    <link rel="manifest" href="/manifest.json">
+
 
     <title>Restaurant Info</title>
 </head>
@@ -75,7 +89,7 @@
         <!-- Start reviews -->
         <section id="reviews-container">
             <!-- Review Form -->
-            <div id="review-form"></div>
+            <div id="review-form" aria-label="Restaurant review form"></div>
             <!-- Review List -->
             <ul id="reviews-list" role="presentation" aria-label="restaurant reviews"></ul>
         </section>
@@ -106,7 +120,7 @@
 <script type="text/javascript" src="js/restaurant_info.js"></script>
 <!-- Google Maps -->
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDixrJy22ACoiV5485jkyXWANqG5AGVqb0&libraries=places&callback=initMap"></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFGK0lS6JRH90F34dcX988wzkxChb7iBc&libraries=places&callback=initMap"></script>
 <!-- Service Worker-->
 <script type="application/javascript" charset="utf-8" src="js/sw_registration.js"></script>
 <!-- End scripts -->

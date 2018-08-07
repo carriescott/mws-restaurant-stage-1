@@ -1,7 +1,7 @@
 const dbPromise = idb.open('restaurant-details', 1, upgradeDB => {
     upgradeDB.createObjectStore('restaurants');
-    upgradeDB.createObjectStore('favorite-restaurants');
-    upgradeDB.createObjectStore('restaurant-reviews', {autoIncrement:true});
+upgradeDB.createObjectStore('favorite-restaurants');
+upgradeDB.createObjectStore('restaurant-reviews', {autoIncrement:true});
 });
 
 /**
@@ -19,7 +19,7 @@ class DBHelper {
         return dbPromise.then(db => {
             return db.transaction(objectStore)
                 .objectStore(objectStore).get(key);
-        });
+    });
     }
 
 
@@ -27,7 +27,7 @@ class DBHelper {
         return dbPromise.then(db => {
             return db.transaction(objectStore)
                 .objectStore(objectStore).getAll();
-        });
+    });
     }
 
 
@@ -37,7 +37,7 @@ class DBHelper {
         tx.objectStore(objectStore).put(val, key);
         console.log('finished adding data');
         return tx.complete;
-        });
+    });
     }
     static addToReviewsIDB(val) {
         return dbPromise.then(db => {
@@ -53,7 +53,7 @@ class DBHelper {
             const tx = db.transaction(objectStore, 'readwrite');
         tx.objectStore(objectStore).delete(key);
         return tx.complete;
-        });
+    });
     }
 
 
@@ -71,7 +71,7 @@ class DBHelper {
     static get DATABASE_URL_Favorites() {
         const port = 1337; // Change this to your server port
         return `http://localhost:${port}/restaurants/?is_favorite=true`;
-            }
+    }
 
     /**
      * Fetch all restaurants from the database and store it in an idb.
@@ -149,7 +149,7 @@ class DBHelper {
                             console.log('myReviewYippee', myReviews[i]);
                             test.push(myReviews[i]);
                         }
-                            console.log('test', test);
+                        console.log('test', test);
                     }
                     callback(null, test);
                 }, function(err) {
@@ -384,12 +384,11 @@ class DBHelper {
      * Restaurant image URL.
      */
     static imageUrlForRestaurant(restaurant) {
-        console.log('imageUrlForRestaurant', restaurant);
-        console.log('restaurantPhoto', restaurant.photograph);
 
         if (restaurant.photograph === undefined) {
             return (`/img/default.jpg`);
         } else {
+            // return (`/img/responsive/360w/${restaurant.photograph}.jpg 360w`);
             return (`/img/${restaurant.photograph}.jpg`);
         }
     }
@@ -422,109 +421,88 @@ class DBHelper {
     }
 
 
-     static saveOffline(form) {
-        // event.preventDefault();
+    static saveOffline(form) {
 
-         console.log('save offline', form);
-         console.log(form.name.value);
-         console.log(form.comments.value);
-         console.log(form.id.value);
+        console.log('save offline', form);
+        console.log(form.name.value);
+        console.log(form.comments.value);
+        console.log(form.id.value);
 
         const formObject = {
             "restaurant_id": form.id.value,
             "name": form.name.value,
             "comments": form.comments.value,
             "rating": form.restaurantRating.value,
-         };
+        };
 
-        // DBHelper.addToIDB(form.id.value, formObject, 'restaurant-reviews');
-        // DBHelper.postReviewToDatabase(formObject);
+
         var IDB = DBHelper.addToReviewsIDB(formObject);
-         IDB.then(function(result) {
-             const restaurantReview = result;
-             console.log('restaurantReview', restaurantReview);
-             // callback(null, restaurantReview);
-         }, function(err) {
-             console.log(err);
-         });
+        IDB.then(function(result) {
+            const restaurantReview = result;
+            console.log('restaurantReview', restaurantReview);
+            // callback(null, restaurantReview);
+        }, function(err) {
+            console.log(err);
+        });
 
-         // document.location.reload();
-         // window.initMap();
-         // fillRestaurantHTML();
-         DBHelper.postReviewToDatabase(formObject);
+        DBHelper.postReviewToDatabase(formObject);
 
-     }
+    }
 
     static postReviewToDatabase(formObject) {
 
-    return fetch(`http://localhost:1337/reviews/`,
-        {method: 'POST',
-        headers: {
-            "Content-Type": "application/json; charset=utf-8",
-            // "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: JSON.stringify(formObject), // body data type must match "Content-Type" header
-    })
-        .then(function(response) {
-            console.log('response', response);
-            // Read the response as json.
-            return response.json();
-        })
-        .then(function(responseAsJson) {
-            const data = responseAsJson;
-            console.log('data', data);
-            // DBHelper.addToIDB(data.id, data, 'restaurant-reviews');
-            // DBHelper.addToReviewsIDB(data);
-            return data;
-            // DBHelper.addToIDB('favorite-restaurants', data);
-            // callback(null, data);
-        })
-        .catch(function (error) {
-            console.log('Looks like there was a problem: \n', error);
-            // DBHelper.setInterval(id, status);
-            // setInterval(DBHelper.setFavoriteStatus, 30000, id, status);
-            setTimeout(DBHelper.postReviewToDatabase, 30000, formObject);
-            console.log('setTimeout is working');
-        });
-        // .catch(error => {
-        // //    add timeout function
-        // console.log(error);
-        // });
+        return fetch(`http://localhost:1337/reviews/`,
+            {method: 'POST',
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                },
+                body: JSON.stringify(formObject),
+            })
+            .then(function(response) {
+                console.log('response', response);
+                return response.json();
+            })
+            .then(function(responseAsJson) {
+                const data = responseAsJson;
+                console.log('data', data);
+                return data;
+            })
+            .catch(function (error) {
+                console.log('Looks like there was a problem: \n', error);
+                setTimeout(DBHelper.postReviewToDatabase, 30000, formObject);
+                console.log('setTimeout is working');
+            });
+
     }
 
 
-/**
+    /**
      * Set Favorite Status
      */
 
     static setFavoriteStatus(id, status) {
 
-                return fetch(`http://localhost:1337/restaurants/${id}/?is_favorite=${status}`,
-                    {method: 'PUT'
-                    })
-                    .then(function(response) {
-                            console.log('response', response);
-                            // Read the response as json.
-                            // clearInterval(DBHelper.setFavoriteStatus(id, status));
-                            return response.json();
-                        })
-                    .then(function(responseAsJson) {
-                                const data = responseAsJson;
-                                console.log('setFavoriteStatusData', data);
-                                // return data;
-                        // callback(null, data);
-                            })
-                    .catch(function (error) {
-                        console.log('Looks like there was a problem: \n', error);
-                            // DBHelper.setInterval(id, status);
-                        // setInterval(DBHelper.setFavoriteStatus, 30000, id, status);
-                        setTimeout(DBHelper.setFavoriteStatus, 30000, id, status);
-                        console.log('setTimeout is working');
-                    });
+        return fetch(`http://localhost:1337/restaurants/${id}/?is_favorite=${status}`,
+            {method: 'PUT'
+            })
+            .then(function(response) {
+                console.log('response', response);
+                return response.json();
+            })
+            .then(function(responseAsJson) {
+                const data = responseAsJson;
+                console.log('setFavoriteStatusData', data);
+            })
+            .catch(function (error) {
+                console.log('Looks like there was a problem: \n', error);
+                setTimeout(DBHelper.setFavoriteStatus, 30000, id, status);
+                console.log('setTimeout is working');
+            });
 
     }
 
 }
+
 
 
 
